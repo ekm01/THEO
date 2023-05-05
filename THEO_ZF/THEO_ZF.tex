@@ -1,0 +1,362 @@
+%!TeX ts-program = xelatex
+%!TeX encoding = utf-8 Unicode
+\documentclass[ieeetran]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\title{Einführung in die Theoretische Informatik Zusammenfassung}
+\author{Efe Kamasoglu}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\section{Grundbegriffe und Grammatiken} % (fold)
+\label{sub:grundbegriffe_und_grammatiken}
+
+\subsection{Grundbegriffe} % (fold)
+\label{sub:grundbegriffe}
+\begin{itemize}
+  \item Alpabet $\Sigma$, endliche Menge
+  \item Wort/String $w$ über $\Sigma$, endliche Menge von Zeichen aus $\Sigma$
+\item $|w|$, Länge des Wortes $w$
+\item $\epsilon$, das leere Wort mit der Länge 0
+\item Wörter $u$ und $v$, $uv$ ist ihre Konkatenation
+\item Wort $w$, $w^n$ definiert durch:
+	\begin{itemize}
+	  \item $w^0 = \epsilon$
+	  \item $w^{n + 1} = ww^n$
+	  \item \textit{\underline{Beispiel:} $(ab)^3 = ababab$}
+         
+	\end{itemize}
+
+\item $\Sigma ^*$, Menge aller Wörter über $\Sigma$
+\item Teilmenge $L \subseteq \Sigma ^*$, formale Sprache
+	\begin{itemize}
+		\item \textit{\underline{Beispiel:} $\emptyset$, $\{\epsilon\}$, $L_1 = \{\epsilon, ab, aabb, aaabbb, ... \} = \{a^nb^n \ | \ n \in \mathbb{N} \}$}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Operationen auf Sprachen} % (fold)
+\label{sub:operationen_auf_sprachen}
+Sprachen $A, B \subseteq \Sigma ^*$
+
+\begin{itemize}
+	\item \textbf{Konkatenation:} $AB = \{uw \ | \ u \in A \ \wedge \ w \in B \}$
+		\begin{itemize}
+			\item \textit{\underline{Beispiel:}} $\{ab,b\}\{a,bb\} = \{aba, abbb, ba, bbb\}$
+			\item $A^n = \{w_1...w_n \ | \ w_1,...,w_n \in A\} = \underbrace{A...A}_\text{n}$
+			\item $A^0 = \{ \epsilon \}, \ A^{n+1} = AA^n$
+			\item $A^* = \{w_1...w_n \ | \ n \ge 0 \ \wedge \ w_1,...,w_n \in A\} = \bigcup_{n \in \mathbb{N}}A^n$
+				\begin{itemize}
+					\item $A^*$ enthält $\epsilon$ immer
+				\end{itemize}
+			\item $A^+ = AA^* = \bigcup_{n \ge 1}A^n$
+				\begin{itemize}
+				  \item $\epsilon \in A \ gdw. \ \epsilon \in A^+$
+				\end{itemize}
+
+		\end{itemize}
+	\item \textbf{Kartesisches Produkt:} $A \times B$
+		\begin{itemize}
+			\item \textit{\underline{Beispiel:}} $\{ab,b\} \times \{a,bb\} = \{(ab,a),(ab,bb),(b,a),(b,bb)\}$
+		\end{itemize}
+	
+\item \textbf{Rechenregeln über Sprachen:}
+	\begin{itemize}
+		\item Für alle $A$: $\epsilon \in A^*$
+	\item $\epsilon \not\in \emptyset$
+	\item $\emptyset^* = \{\epsilon\} = \emptyset^0$
+	\item $A\{\epsilon\} = \{\epsilon\}A = A$
+	\item $A\emptyset= \emptyset A = \emptyset$
+	\item $A \times \emptyset = \emptyset$
+	\item $A(B \cup C) = AB \cup AC$
+	\item $(A \cup B)C = AC \cup BC$
+	\item $A(B \cap C) = AB \cap AC$ gilt i.A. \textbf{nicht}
+	\item $A(B \setminus C) = AB \setminus AC$ gilt i.A. \textbf{nicht}
+
+	\item $A^*A^* = (A^*)^* = A^*$
+	\end{itemize}
+\end{itemize}
+
+\subsection{Grammatiken} % (fold)
+\label{sub:grammatiken}
+\begin{itemize}
+	\item Grammatik, 4-Tupel $G = (V, \Sigma, P, S)$
+\begin{itemize}
+	\item $V$, endliche Menge von \textbf{Nichtterminalen}
+	\item $\Sigma$, endliche Menge von \textbf{Terminalen}, disjunkt von $V$
+	\item $P \subseteq (V \cup \Sigma)^* \times (V \cup \Sigma)^*$, Menge von \textbf{Produktionen}
+	\item $S \in V$, \textbf{Startsymbol}
+\end{itemize} 
+
+\item Eine Grammatik G induziert eine \textbf{Ableitungsrelation} $\rightarrow_G$ auf Wörtern über $V \cup \Sigma$:
+\begin{itemize}
+  \item $\alpha \rightarrow \alpha'$ gdw.\ es eine Regel $\beta \rightarrow \beta'$ in $P$ und Wörter $\alpha_1, \alpha_2$ gibt, so dass $\alpha = \alpha_1 \beta \alpha_2 \ \wedge \ \alpha' = \alpha_1 \beta' \alpha_2$
+\end{itemize}
+
+\item Eine \textbf{Sequenz} $\alpha_1 \rightarrow_G \alpha_2 \rightarrow_G ... \rightarrow_G \alpha_n$ ist eine \textbf{Ableitung} von $\alpha_n$ aus $\alpha_1$.
+\item Wenn $\alpha_1 = S$ und $\alpha_n \in \Sigma^*$, dann \textbf{erzeugt} $G$ das Wort $\alpha_n$.\ Erzeugte Wörter bestehen nur aus \textbf{Terminalzeichen}.
+
+\item Die Sprache von $G$ ist die Menge aller Wörter ($\Sigma^*$), die von $G$ erzeugt werden: $L(G)$
+
+\item \textbf{Chomsky Hierarchie:} Eine Grammatik $G$ ist vom
+\begin{itemize}
+  \item \textbf{Typ 0} immer
+\item \textbf{Typ 1} falls für jede Produktion $\alpha \rightarrow \beta$ ausser $S \rightarrow \epsilon$ gilt $|\alpha| \le |\beta|$
+\item \textbf{Typ 2} falls $G$ vom Typ 1 ist und für jede Produktion $\alpha \rightarrow \beta$ gilt $\alpha \in V$
+
+\item \textbf{Typ 3} falls $G$ vom Typ 2 ist und für jede Produktion $\alpha \rightarrow \beta$ ausser $S \rightarrow \epsilon$ gilt
+$\beta \in \Sigma \cup \Sigma V$
+
+\item Typ 3 $\subset$ Typ 2 $\subset$ Typ 1 $\subset$ Typ 0
+\item $L$(Typ 3) $\subset$ $L$(Typ 2) $\subset$ $L$(Typ 1) $\subset$ $L$(Typ 0)
+ 
+\end{itemize}
+\pagebreak
+
+\item \textbf{Grammatiken und Sprachklassen:}
+	\begin{itemize}
+		\item \textbf{Typ 3, Rechtslineare Grammatik, Reguläre Sprachen} 
+		\item \textbf{Typ 2, Kontextfreie Grammatik, Kontextfreie Sprachen} 
+	\item Typ 1, Kontextsensitive Grammatik, Kontextsensitive Sprachen
+		\item Typ 0, Phrasenstrukturgrammatik, Rekursiv aufzählbare Sprachen
+	\end{itemize}
+\end{itemize}
+
+
+\section{Reguläre Sprachen} % (fold)
+\label{sec:reguläre_sprachen}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{regausgram.png}
+  \label{fig:regausgram_png}
+\end{figure}
+
+\subsection{Deterministische endliche Automaten (DFA)} % (fold)
+\label{sub:deterministische_endliche_automaten_dFA_}
+
+\begin{itemize}
+  \item DFA, 5-Tupel $M = (Q,\Sigma,\delta,q_0, F)$
+	 \begin{itemize}
+	   \item $Q$, endliche Menge von \textbf{Zuständen}
+	\item $\Sigma$, endliches \textbf{Eingabealphabet} 
+	\item $\delta : \ Q \times \Sigma \rightarrow Q$, totale \textbf{Übergangsfunktion}
+	\item $q_0 \in Q$, ein \textbf{Startzustand}
+	\item $F \subseteq Q$, endliche Menge von \textbf{Endzuständen} 
+	 \end{itemize}
+
+ \item Die von DFA $M$ \textbf{akzeptierte} Sprache ist $L(M) = \{ w \in \Sigma^* \ | \ \hat{\delta}(q_0,w) \in F \}$, wobei $\hat{\delta}: \ Q \times \Sigma^* \rightarrow Q$ induktiv definiert durch:
+	 \begin{itemize}
+		 \item $\delta(q,a)$, Zustand, den man aus $q$ mit einem \textbf{Zeichen} $a$ erreicht
+		 \item $\hat{\delta}(q,w)$, Zustand, den man aus $q$ mit einem \textbf{Wort} $w$ erreicht
+		 \item $\hat{\delta}(q,\epsilon) = q$
+		 \item $\hat{\delta}(q,aw) = \hat{\delta}(\delta(q,a),w)$ für $a \in \Sigma, w \in \Sigma^*$
+
+	 \end{itemize}
+\end{itemize}
+
+\subsection{Nicht-Deterministische endliche Automaten (NFA)} % (fold)
+\label{sub:nicht_deterministische_endliche_automaten_nFA_}
+\begin{itemize}
+  \item NFA, 5-Tupel $N = (Q,\Sigma,\delta,q_0,F)$
+	  \begin{itemize}
+	    \item $Q, \Sigma, q0$ und $F$ wie beim DFA
+	    \item $\delta: \ Q \times \Sigma \rightarrow \mathcal{P}(Q)$, wobei $\mathcal{P}(Q)$ Menge aller Teilmengen von $Q$
+	  \end{itemize}
+
+\pagebreak
+
+  \item Die von NFA $N$ \textbf{akzeptierte} Sprache ist $L(N) = \{ w \in \Sigma^* \ | \ \hat{\overline{\delta}}(\{q_0\},w) \cap F \neq \emptyset \}$, wobei
+	  \begin{itemize}
+		  \item $\overline{\delta}(S,a) = \bigcup_{q \in S}\delta(q,a)$, Menge aller Zustände, die man von einem Zustand in $S$ aus mit einem \textbf{Zeichen} $a$ erreicht
+		  \item $\hat{\overline{\delta}}(S,w)$, Menge aller Zustände, die man von einem Zustand in $S$ aus mit einem \textbf{Wort} $w$ erreicht
+		  \item $\overline{\delta}: \ \mathcal{P}(Q) \times \Sigma \rightarrow \mathcal{P}(Q)$
+		  \item $\hat{\overline{\delta}}: \ \mathcal{P}(Q) \times \Sigma^* \rightarrow \mathcal{P}(Q)$	  
+\end{itemize}
+\end{itemize}
+
+\subsection{Rechtslineare Grammatik $\rightarrow$ NFA} % (fold)
+\label{sub:nFA_rechtslineare_grammatik}
+\begin{enumerate}
+	\item Füge einen Zustand für jedes Nichtterminal ein, Startsymbol wird zum Startzustand
+	\item Füge einen Endzustand für jedes Terminal, falls es $S \rightarrow \epsilon$ gibt, dann Startzustand ist auch ein Endzustand
+	\item Für jede Kombination $Y \rightarrow aX$ füge eine Kante von $Y$ nach $X$ mit dem Zeichen $a$
+	\item Für jede Kombination $Y \rightarrow a$ füge eine Kante von $Y$ nach dem Endzustand mit dem Zeichen $a$
+\end{enumerate}
+
+\textit{\underline{Beispiel:}}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{gramtonfa}
+  \label{fig:gramtonfa}
+\end{figure}
+
+\subsection{NFA $\rightarrow$ DFA, Potenzmengenkonstruktion} % (fold)
+\label{sub:nFA_dFA_potenzmengenkonstruktion}
+Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
+
+\begin{enumerate}
+  \item Für alle Zustände wiederhole (beginnend mit Startzustand $q_0$):
+     \begin{enumerate}
+       \item Bestimme wohin man mit welcher Kante geht
+	\item Erzeuge neue Zustände durch Vereinigung der auf der rechten Seite stehenden Zuständen mit der selben Kanten
+        \item Falls ein Zustand einen Endzustandszeichen beinhaltet, mache diesen Zustand einen Endzustand
+     \end{enumerate}
+\end{enumerate}
+\pagebreak
+\textit{\underline{Beispiel:}}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{nfatodfa.png}
+  \label{fig:nfatodfa_png}
+\end{figure}
+
+\subsection{$\epsilon$-NFA} % (fold)
+\label{sub:__epsilon_nFA}
+\begin{itemize}
+  \item Ein NFA mit \textbf{$\epsilon$-Übergängen} ist ein NFA mit $\epsilon \not\in \Sigma$ und $\delta: \ Q \times (\Sigma \ \cup \ \{\epsilon\}) \rightarrow \mathcal{P}(Q)$
+\end{itemize}
+
+\subsection{$\epsilon$-NFA $\rightarrow$ NFA} % (fold)
+\label{sub:_epsilon_nFA_rightarrow_nFA}
+
+\begin{enumerate}
+  \item Lösche überflüssige Zustände:
+	  
+	  \begin{tikzpicture}[node distance=2cm,on grid,auto] 
+	     \node[state] (q_0) {$q_0$}; 
+	     \node[state] (q_1) [right=of q_0] {$q_1$}; 
+	     \node[state] (q_2) [right=of q_1] {$q_2$}; 	      
+	     \path[->] 
+	      (q_0) edge  node {$\epsilon$} (q_1)
+	      (q_1) edge  node {$\epsilon$} (q_2); 
+	  \end{tikzpicture}
+	 
+\item Verbinde die Zustände in der Form mit einer einzigen Kante:
+
+	\begin{tikzpicture}[node distance=2cm,on grid,auto] 
+	     \node[state] (q_0) {$q_0$}; 
+	     \node[state] (q_1) [right=of q_0] {$q_1$};
+	     \node[state] (q_2) [right=of q_1] {$q_2$};
+	     \node[state] (q_3) [right=of q_2] {$q_3$};
+	     \path[->] 
+	      (q_0) edge  node {$\epsilon$} (q_1)
+	      (q_1) edge  node {$a$} (q_2)
+              (q_2) edge  node {$\epsilon$} (q_3);
+	  \end{tikzpicture}
+	  \\ wird zu
+
+	  \begin{tikzpicture}[node distance=2cm,on grid,auto] 
+	     \node[state] (q_0) {$q_0$}; 
+	     \node[state] (q_3) [right=of q_0] {$q_3$}; 
+	     \path[->] 
+	      (q_0) edge  node {$a$} (q_3);
+	  \end{tikzpicture}
+
+\item Lösche nicht erreichbare Zustände
+\item Falls $\epsilon$ in der Sprache ist, dann mache den Startzustand Endzustand
+\end{enumerate}
+
+
+
+\subsection{Reguläre Ausdrücke (REs)} % (fold)
+\label{sub:reguläre_ausdrücke}
+
+\begin{itemize}
+  \item Reguläre Ausdrücke sind induktiv definiert:
+\begin{itemize}
+  \item $\emptyset$
+\item $\epsilon$
+\item Für jedes $a \in \Sigma$
+\item Wenn $\alpha$, $\beta$ RE, auch:
+	\begin{itemize}
+		\item[-] $\alpha \beta$
+		\item[-] $\alpha \ | \ \beta$ = $\alpha + \beta$
+		\item[-] $\alpha^*$
+	\end{itemize}
+
+
+\end{itemize}
+
+\item $*$, Kleene'sche Iteration
+
+\item $ab^* = a(b^*) \neq (ab)^*$
+\item $ab \ | \ c = (ab) \ | \ c \neq a(b \ | \ c)$
+
+
+\item Für RE $\gamma$ ist die Sprache induktiv definiert:
+	\begin{itemize}
+	  \item $L(\emptyset) = \emptyset$
+	  \item $L(\epsilon) = \{\epsilon\}$
+	\item $L(a) = \{a\}$
+\item $L(\alpha \beta) = L(\alpha)L(\beta)$
+	\item $L(\alpha \ | \ \beta) = L(\alpha) \cup L(\beta)$
+	\item $L(\alpha^*) = L(\alpha)^*$
+	\end{itemize}
+
+\end{itemize}
+
+\subsection{RE $\rightarrow$ $\epsilon$-NFA} % (fold)
+\label{sub:rE_rightarrow_epsilon_nFA}
+\begin{enumerate}
+	\item Wende folgende Ersetzungsregeln an
+		\begin{figure}[h!]
+		  \centering
+		  \includegraphics[width=0.8\linewidth]{ersetzungretonfa.png}
+		  \label{fig:ersetzungretonfa_png}
+		\end{figure}
+
+\item Wende folgende Transformationsregeln an
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.8\linewidth]{transformationsregel.png}
+	  \label{fig:transformationsregel_png}
+	\end{figure}
+\end{enumerate}
+
+\pagebreak
+
+\textit{\underline{Beispiel:}}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{retonfabeispiel.png}
+  \label{fig:retonfabeispiel_png}
+\end{figure}
+
+\subsection{$\epsilon$-NFA $\rightarrow$ RE} % (fold)
+\label{sub:_epsilon_nFA_rightarrow_rE}
+
+\begin{enumerate}
+	\item Hat Startzustand $q_1$ eingehende Übergänge, füge einen neuen Startzustand $q_0$ mit einem $\epsilon$-Übergang nach $q_1$
+	\item Füge einen neuen Endzustand $q_3$ und $\epsilon$-Übergänge nach $q_3$ von allen Endzuständen ($q_2$ in diesem Beispiel)
+
+		\begin{figure}[h!]
+		  \centering
+		  \includegraphics[width=0.8\linewidth]{nfatoreschritt1.png}
+		  \label{fig:nfatoreschritt1_png}
+		\end{figure}
+
+\item Wende die Transformationsregeln von 2.8 an, aber umgekehrt
+\end{enumerate}
+
+\textit{\underline{Beispiel:}}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.56\linewidth]{nfatorebeispiel1.png}
+  \includegraphics[width=0.4\linewidth]{nfatorebeispiel2.png}
+  \label{fig:nfatorebeispiel_png}
+\end{figure}
+
+\subsection{FA $\rightarrow$ RE, Ardens Lemma} % (fold)
+\label{sub:fA_}
+
+
+\end{document}
