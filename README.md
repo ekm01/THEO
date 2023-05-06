@@ -5,3 +5,4 @@
 
 # TODO
 1. Abdecken des Stoffs von 68-94
+2. Aktualisiere THEO_TU bezüglich 2. TÜ
