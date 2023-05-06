@@ -181,10 +181,10 @@ $\beta \in \Sigma \cup \Sigma V$
 \end{itemize}
 \end{itemize}
 
-\subsection{Rechtslineare Grammatik $\rightarrow$ NFA} % (fold)
+\subsection{Rechtsline are  Grammatik $\rightarrow$ NFA} % (fold)
 \label{sub:nFA_rechtslineare_grammatik}
 \begin{enumerate}
-	\item Füge einen Zustand für jedes Nichtterminal ein, Startsymbol wird zum Startzustand
+	\item Füge einen Zustand für jedes Nichtterminal, Startsymbol wird zum Startzustand
 	\item Füge einen Endzustand für jedes Terminal, falls es $S \rightarrow \epsilon$ gibt, dann Startzustand ist auch ein Endzustand
 	\item Für jede Kombination $Y \rightarrow aX$ füge eine Kante von $Y$ nach $X$ mit dem Zeichen $a$
 	\item Für jede Kombination $Y \rightarrow a$ füge eine Kante von $Y$ nach dem Endzustand mit dem Zeichen $a$
@@ -206,8 +206,8 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
   \item Für alle Zustände wiederhole (beginnend mit Startzustand $q_0$):
      \begin{enumerate}
        \item Bestimme wohin man mit welcher Kante geht
-	\item Erzeuge neue Zustände durch Vereinigung der auf der rechten Seite stehenden Zuständen mit der selben Kanten
-        \item Falls ein Zustand einen Endzustandszeichen beinhaltet, mache diesen Zustand einen Endzustand
+	\item Erzeuge neue Zustände durch Vereinigung der auf der rechten Seite stehenden Zuständen mit der selben Kanten, verbinde diese
+        \item \textbf{Mindestens einer von den Zuständen}, die in dem neuen Zustand sind, ist ein \textbf{Endzustand} $\rightarrow$ der neue Zustand wird ein Endzustand
      \end{enumerate}
 \end{enumerate}
 \pagebreak
@@ -287,10 +287,6 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 
 \item $*$, Kleene'sche Iteration
 
-\item $ab^* = a(b^*) \neq (ab)^*$
-\item $ab \ | \ c = (ab) \ | \ c \neq a(b \ | \ c)$
-
-
 \item Für RE $\gamma$ ist die Sprache induktiv definiert:
 	\begin{itemize}
 	  \item $L(\emptyset) = \emptyset$
@@ -300,8 +296,52 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 	\item $L(\alpha \ | \ \beta) = L(\alpha) \cup L(\beta)$
 	\item $L(\alpha^*) = L(\alpha)^*$
 	\end{itemize}
+\item $\alpha \equiv \beta$ gdw.\ $L(\alpha) = L(\beta)$
+\item \textbf{Rechenregeln über REs:}
+	\begin{itemize}
+	  \item \textbf{Null und Eins Lemma:}
+		  \begin{itemize}
+			  \item[-] $\emptyset \ | \ \alpha \equiv \alpha \ | \ \emptyset \equiv \alpha$
+			  \item[-] $\emptyset \alpha \equiv \alpha \emptyset \equiv \emptyset$
+			  \item[-] $\epsilon \alpha \equiv \alpha \epsilon \equiv \alpha$
+			  \item[-] $\emptyset^* \equiv \epsilon$
+			  \item[-] $\epsilon^* \equiv \epsilon$
 
+		  \end{itemize}
+
+\item \textbf{Assoziativität:}
+	\begin{itemize}
+		\item[-] $(\alpha \ | \ \beta) \ | \ \gamma \equiv \alpha \ | \ (\beta \ | \ \gamma)$
+		\item[-] $\alpha (\beta \gamma) \equiv (\alpha \beta) \gamma$
+	\end{itemize}
+
+\item \textbf{Kommutativität:}
+	\begin{itemize}
+		\item[-] $\alpha \ | \ \beta \equiv \beta \ | \ \alpha$
+	\end{itemize}
+
+\item \textbf{Distributivität:}
+	\begin{itemize}
+		\item[-] $\alpha (\beta \ | \ \gamma) \equiv \alpha \beta \ | \ \alpha \gamma$
+		\item[-] $(\beta \ | \ \gamma) \alpha \equiv \beta \alpha \ | \ \gamma \alpha$
+	\end{itemize}
+
+\item \textbf{Idempotenz:}
+	\begin{itemize}
+		\item[-] $\alpha \ | \ \alpha \equiv \alpha$
+	\end{itemize}
+	\end{itemize}
+
+
+\item \textbf{Stern Lemma:}
+	\begin{itemize}
+		\item[-] $\epsilon \ | \ \alpha \alpha^* \equiv \alpha^*$
+		\item[-] $\alpha^* \alpha \equiv \alpha \alpha^*$
+		\item[-] $(\alpha^*)^* \equiv \alpha^*$
+	\end{itemize}
 \end{itemize}
+
+\pagebreak
 
 \subsection{RE $\rightarrow$ $\epsilon$-NFA} % (fold)
 \label{sub:rE_rightarrow_epsilon_nFA}
@@ -321,15 +361,13 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 	\end{figure}
 \end{enumerate}
 
-\pagebreak
-
 \textit{\underline{Beispiel:}}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\linewidth]{retonfabeispiel.png}
   \label{fig:retonfabeispiel_png}
 \end{figure}
-
+\pagebreak
 \subsection{$\epsilon$-NFA $\rightarrow$ RE} % (fold)
 \label{sub:_epsilon_nFA_rightarrow_rE}
 
@@ -355,8 +393,151 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
   \label{fig:nfatorebeispiel_png}
 \end{figure}
 
-\subsection{FA $\rightarrow$ RE, Ardens Lemma} % (fold)
+\subsection{Ardens Lemma} % (fold)
 \label{sub:fA_}
+\begin{itemize}
+\item Sind $A, B, X$ Sprachen mit $\epsilon \not\in A$, so gilt:
+	\large
+	\begin{equation*}
+	\boxed{
+	\begin{aligned}
+X = AX \cup B \Longrightarrow X = A^* B	
+	\end{aligned}
+	}
+	\end{equation*}
+	\normalsize
+	
+	\item Sind $\alpha, \beta, X$ REs mit $\epsilon \not\in L(\alpha)$, so gilt:
+\large
+\begin{equation*}
+\boxed{
+\begin{aligned}
+	X \equiv \alpha X \ | \ \beta \Longrightarrow X \equiv \alpha^* \beta 
+\end{aligned}
+}
+\end{equation*}
+\normalsize
+
+\item \textbf{Bemerkungen:}
+	\begin{itemize}
+		\item $X \equiv X\alpha \ | \ \beta \Longrightarrow X \equiv \beta \alpha^*$
+			\pagebreak
+		\item $X \equiv \alpha X \ | \ \beta$ für $\epsilon \in L(\alpha)$
+		\begin{itemize}
+		\item hat \textbf{keine eindeutige Lösung}: jede Sprache $B \subseteq X$ ist Lösung
+		  \item \textit{\underline{Beispiel:}} für $\alpha = \epsilon$ und $\beta = b$ kann $X = b$ oder $X = a \ | \ b$ oder $X = aba \ | \ b$
+		\end{itemize}
+	
+	\item $X \equiv X \ | \ aX$
+		\begin{itemize}
+		  \item hat \textbf{keine eindeutige Lösung:} $X = \emptyset$ oder $X = \Sigma^*$ oder $X = a^*$
+		\end{itemize}
+	
+		\item $X \equiv \alpha X$ für $\epsilon \not\in L(\alpha)$
+			\begin{itemize}
+			  \item hat \textbf{eine eindeutige Lösung:} $X = \emptyset$
+			\end{itemize}
+		\item $X \equiv \alpha X$ für $\epsilon \in L(\alpha)$
+			\begin{itemize}
+				\item hat \textbf{keine eindeutige Lösung:} $X = \Sigma^*$ oder $X = ab^*a$
+			\end{itemize}
+
+		\item $X \equiv aXb \ | \ \epsilon$
+			\begin{itemize}
+				\item hat \textbf{keine reguläre Lösung:} $X = L$ für $L = \{a^nb^n, n \ge 0\}$
+
+			\end{itemize}
+			\item $X \equiv abX \ | \ \epsilon$
+			\begin{itemize}
+			  \item hat \textbf{eine eindeutige Lösung:} $X = (ab)^*\epsilon = (ab)^*$
+			\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+
+\subsection{FA $\rightarrow$ RE mittels Ardens Lemma} % (fold)
+\label{sub:fA_rightarrow_rE}
+\begin{enumerate}
+  \item FA als Gleichungssystem schreiben 
+\begin{itemize}
+  \item für jeden Endzustand $X_f$ füge $X_f \equiv \epsilon$ ein
+\item für jeden Zustand $X$ mit 
+	
+	\begin{tikzpicture}[node distance=2cm,on grid,auto] 
+	   \node[state] (X) {$X$}; 
+	   \node[state] (X_1) [right=of X] {$X_1$}; 
+	    \path[->] 
+	    (X) edge  node {a} (X_1);
+	\end{tikzpicture}
+
+mache $X \equiv aX_1$
+	
+\end{itemize}
+
+\item Gleichungen einsetzen und damit eliminieren
+\item Rechenregeln über REs und Ardens Lemma verwenden
+\end{enumerate}
+
+\subsection{Konversionen bezüglich regulärer Sprachen} % (fold)
+\label{sub:konversionen_bezüglich_regulärer_sprachen}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.65\linewidth]{konversionregular}
+  \label{fig:konversionregular}
+\end{figure}
+
+\pagebreak
+
+
+\subsection{Abschlusseigenschaften regulärer Sprachen} % (fold)
+\label{sub:abschlusseigenschaften_regulärer_sprachen}
+Seien $R, R_1, R_2 \subseteq \Sigma^*$ reguläre Sprachen, dann sind auch
+\begin{itemize}
+  \item $R_1 R_2$
+\item $R_1 \cup R_2$, $R_1 \cap R_2$, $R_1 \setminus R_2$
+\item $\overline{R}$ bzw. $\Sigma^* \setminus R$
+
+\item $R^*$
+\item $R^R$ (Spiegelung von $R$)
+\end{itemize}
+
+\subsection{Komplementierung $\overline{R}$ bezüglich FAs} % (fold)
+\label{sub:komplementierung_bezüglich_fAs}
+\begin{itemize}
+  \item \textbf{Für DFAs:} Vertauschen von Endzuständen und Nicht-Endzuständen
+\item \textbf{Für NFAs:} funktioniert das Vertauschen \textbf{nicht} 
+\end{itemize}
+
+\subsection{Schnitt zweier DFAs, Produktkonstruktion} % (fold)
+\label{sub:produktkonstruktion}
+\begin{itemize}
+	\item Sind $M_1$ und $M_2$ DFAs. Dann ist der \textbf{Produkt-Automat} $\mathbf{M}$ mit $L(M) = L(M_1) \cap L(M_2)$.
+
+	\item \textbf{Produktkonstruktion für $M_1$ und $M_2$:}
+		\begin{enumerate}
+			\item Erzeuge einen neuen Startzustand aus den Startzuständen der $M_1$ und $M_2$
+			\item Bestimme wohin man mit welcher Kante geht
+			\item Erzeuge neue Zustände durch Vereinigung der auf der rechten Seite stehenden Zuständen mit der selben Kanten, verbinde diese
+			\item \textbf{Alle Zustände}, die in dem neuen Zustand sind, sind \textbf{Endzustände} $\rightarrow$ der neue Zustand wird ein Endzustand
+		\end{enumerate}
+\end{itemize}
+
+\subsection{Vereinigung zweier DFAs} % (fold)
+\label{sub:vereinigung_zweier_dFAs}
+\begin{itemize}
+\item Sind $M_1$ und $M_2$ DFAs. Dann ist $M$ mit $L(M) = L(M_1) \cup L(M_2)$.
+\item \textbf{Konstruktion für $M_1$ und $M_2$:}
+Gleich wie die Produktkonstruktion bis auf 4.
+\begin{enumerate}
+	\item[4.] \textbf{Mindestens einer von den Zuständen}, die in dem neuen Zustand sind, ist ein \textbf{Endzustand} $\rightarrow$ der neue Zustand wird ein Endzustand
+\end{enumerate}
+\end{itemize}
+
+\subsection{Pumping Lemma} % (fold)
+\label{sub:pumping_lemma}
+
+
+
 
 
 \end{document}

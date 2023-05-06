@@ -4,5 +4,4 @@
 3. Link zu der offiziellen Webseite: https://www.cs.cit.tum.de/tcs/lehre/sommersemester-2023/theo/ (unter Materialien)
 
 # TODO
-1. Abdecken des Stoffs von 68-94
-2. Aktualisiere THEO_TU bezüglich 2. TÜ
+1. Aktualisiere THEO_TU bezüglich 2. TÜ
