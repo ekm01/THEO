@@ -59,6 +59,27 @@
 \section{Tutorium 2} % (fold)
 \label{sec:tutorium_2}
 
+\subsection{Strukturelle Induktion} % (fold)
+\label{sub:strukturelle_induktion}
+Um zu beweisen, dass eine Eigenschaft $P(r)$ für alle regulären Ausdrücke gilt.
+\begin{enumerate}
+	\item Zeige $P(\emptyset)$
+	\item Zeige $P(\epsilon)$
+	\item Zeige $P(a)$ für alle $a \in \Sigma$
+	\item Unter der Annahme $P(\alpha)$ und $P(\beta)$ (I.H.), zeige $P(\alpha \beta)$ \\$\rightarrow$ verwende $L(\alpha \beta) =L(\alpha)L(\beta)$
+	\item Unter der Annahme $P(\alpha)$ und $P(\beta)$ (I.H.), zeige $P(\alpha \ | \ \beta)$ \\$\rightarrow$ verwende $L(\alpha \ | \ \beta) =L(\alpha) \cup L(\beta)$
+	\item Unter der Annahme $P(\alpha)$ (I.H.), zeige $P(\alpha^*)$ \\$\rightarrow$ verwende $L(\alpha^*) = L(\alpha)^*$
+	
+\end{enumerate}
+
+
+\textit{\underline{Beispiel:}} $empty(r)$ entscheidet, ob $L(r) = \emptyset$. Zeige die Korrektheit der Konstruktion:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1.0\linewidth]{strukturelleinduktion}
+  \label{fig:strukturelleinduktion}
+\end{figure}
 
 
 \end{document}
