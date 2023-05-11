@@ -381,7 +381,13 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 		  \label{fig:nfatoreschritt1_png}
 		\end{figure}
 
-\item Wende die Transformationsregeln von 2.8 an, aber umgekehrt
+\item Wähle ein Zustand $q$, der weder Start- noch Endzustand ist
+\item Eliminiere $q$, wende dabei folgende Regeln:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\linewidth]{nfatoreschritt2.png}
+  \label{fig:nfatoreschritt2_png}
+\end{figure}
 \end{enumerate}
 
 \textit{\underline{Beispiel:}}
@@ -421,7 +427,6 @@ X = AX \cup B \Longrightarrow X = A^* B
 \item \textbf{Bemerkungen:}
 	\begin{itemize}
 		\item $X \equiv X\alpha \ | \ \beta \Longrightarrow X \equiv \beta \alpha^*$
-			\pagebreak
 		\item $X \equiv \alpha X \ | \ \beta$ für $\epsilon \in L(\alpha)$
 		\begin{itemize}
 		\item hat \textbf{keine eindeutige Lösung}: jede Sprache $B \subseteq X$ ist Lösung
@@ -478,6 +483,8 @@ mache $X \equiv aX_1$
 \item Rechenregeln über REs und Ardens Lemma verwenden
 \end{enumerate}
 
+\pagebreak
+
 \subsection{Konversionen bezüglich regulärer Sprachen} % (fold)
 \label{sub:konversionen_bezüglich_regulärer_sprachen}
 \begin{figure}[h!]
@@ -486,7 +493,6 @@ mache $X \equiv aX_1$
   \label{fig:konversionregular}
 \end{figure}
 
-\pagebreak
 
 
 \subsection{Abschlusseigenschaften regulärer Sprachen} % (fold)
@@ -533,8 +539,66 @@ Gleich wie die Produktkonstruktion bis auf 4.
 \end{enumerate}
 \end{itemize}
 
-\subsection{Pumping Lemma} % (fold)
+\subsection{Pumping Lemma für reguläre Sprachen} % (fold)
 \label{sub:pumping_lemma}
+\begin{itemize}
+	\item Sei $L \subseteq \Sigma^*$ regulär. Dann gibt es ein $n > 0$, so dass sich jedes $z \in L$ mit $|z| \ge n$ so in $z = uvw$ zerlegen lässt, dass
+\begin{enumerate}
+  \item $v \neq \epsilon$
+\item $|uv| \le n$
+\item $\forall i \ge 0.$ $uv^iw \in L$
+\end{enumerate}
+  \item Um zu zeigen, dass eine Sprache \textbf{nicht regulär} ist $\rightarrow$ \textbf{Regulärität} mit Pumping Lemma zu zeigen \textbf{nicht möglich}
+  \item Es gibt nicht-reguläre Sprachen, für die das Pumping-Lemma gilt \\$\rightarrow$ regulär $\subset$ Pumping Lemma gilt $\subset$ alle Sprachen
+
+  \item \textit{\underline{Beispiel:}} $L = \{0^{m^{2}} \ | \ m \ge 0\}$
+\\ \\ Angenommen $L$ sei regulär.
+\\Sei $n$ eine Pumping-Lemma-Zahl für $L$.
+\\Wähle $z = 0^{n^{2}} \in L$. Sei $uvw$ ist eine Zerlegung von $z$ mit $1 \le |v| \le |uv| \le n$.
+\\ Zeige, dass $uv^iw \not\in L$ für den Fall $i = 2$ gilt:
+\\ $n^2 = |z| = |uvw| < |uv^2w| \le n^2 + n \le n^2 + 2n + 1 = (n + 1)^2$
+\\ Da es keine Quadratzahl zwischen $n^2$ und $(n+1)^2$ geben kann, ist $uv^2w \not\in L$, damit ist $L$ nicht regulär.
+
+
+\end{itemize}
+
+\subsection{Entscheidungsprobleme für reguläre Sprachen} % (fold)
+\label{sub:entscheidungsprobleme_für_reguläre_sprachen}
+\begin{itemize}
+  \item \textbf{Wortproblem:} Gegeben $w$ und $D$, gilt $w \in L(D)$?
+\begin{itemize}
+	\item für DFA $M$, in $O(|w| + |M|\footnote{Konstante für die Entscheidung, ob der Zustand den wir am Ende erreichen, ein Endzustand ist})$ entscheidbar
+\item für NFA $N$, in $O(|Q|^2|w| + |N|)$ entscheidbar
+\end{itemize}
+
+\item \textbf{Leerheitsproblem:} Gegeben $D$, gilt $L(D) = \emptyset$?
+\begin{itemize}
+	\item für DFA $M$, in $O(|Q||\Sigma|)$ entscheidbar
+\item für NFA $N$, in $O(|Q|^2|\Sigma|)$ entscheidbar
+\end{itemize}
+
+\pagebreak
+
+\item \textbf{Endlichkeitsproblem:} Gegeben $D$, ist $L(D)$ endlich?
+\begin{itemize}
+	  \item für DFA und NFA entscheidbar
+	\item $L(M) = \infty$ gdw.\ vom Startzustand aus eine nicht-leere Schleife erreichbar ist, von der aus $F$ erreichbar ist
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.5\linewidth]{endlichkeitsproblem}
+	  \label{fig:endlichkeitsproblem}
+	\end{figure}
+\end{itemize}
+
+\item \textbf{Äquivalenzproblem:} Gegeben $D_1$ und $D_2$, gilt $L(D_1) = L(D_2)$?
+\begin{itemize}
+\item schaue, ob $L(M_1) \cap \overline{L(M_2)} = \emptyset$ und $\overline{L(M_1)} \cap L(M_2) = \emptyset$ gelten
+	\item für DFAs, in $O(|Q_1||Q_2||\Sigma|)$ entscheidbar
+	\item für NFA $N$, in $O(2^{|Q_1| +|Q_2|})$ entscheidbar (bei fixem $\Sigma$)
+\end{itemize}\end{itemize}
+
+\subsection{Minimierung von FAs} % (fold)
+\label{sub:minimierung_der_fAs}
 
 
 
