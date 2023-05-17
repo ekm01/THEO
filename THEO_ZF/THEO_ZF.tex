@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
+\usepackage{changepage}
 
 \title{Einführung in die Theoretische Informatik Zusammenfassung}
 \author{Efe Kamasoglu}
@@ -138,6 +139,19 @@ $\beta \in \Sigma \cup \Sigma V$
   \label{fig:regausgram_png}
 \end{figure}
 
+\subsection{Rechtslineare Grammatik} % (fold)
+\label{sub:rechtslineare_grammatik}
+$X,Y \in V$, Produktionen folgender Gestalt:
+\begin{itemize}
+  \item $X \rightarrow aY$
+\item $X \rightarrow a$
+
+\item $X \rightarrow Y$
+\item $X \rightarrow \epsilon$, nur dann wenn $X$ Startsymbol ist
+\end{itemize}
+
+
+
 \subsection{Deterministische endliche Automaten (DFA)} % (fold)
 \label{sub:deterministische_endliche_automaten_dFA_}
 
@@ -170,7 +184,6 @@ $\beta \in \Sigma \cup \Sigma V$
 	    \item $\delta: \ Q \times \Sigma \rightarrow \mathcal{P}(Q)$, wobei $\mathcal{P}(Q)$ Menge aller Teilmengen von $Q$
 	  \end{itemize}
 
-\pagebreak
 
   \item Die von NFA $N$ \textbf{akzeptierte} Sprache ist $L(N) = \{ w \in \Sigma^* \ | \ \hat{\overline{\delta}}(\{q_0\},w) \cap F \neq \emptyset \}$, wobei
 	  \begin{itemize}
@@ -181,7 +194,7 @@ $\beta \in \Sigma \cup \Sigma V$
 \end{itemize}
 \end{itemize}
 
-\subsection{Rechtsline are  Grammatik $\rightarrow$ NFA} % (fold)
+\subsection{Rechtslineare Grammatik $\rightarrow$ NFA} % (fold)
 \label{sub:nFA_rechtslineare_grammatik}
 \begin{enumerate}
 	\item Füge einen Zustand für jedes Nichtterminal, Startsymbol wird zum Startzustand
@@ -210,8 +223,8 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
         \item \textbf{Mindestens einer von den Zuständen}, die in dem neuen Zustand sind, ist ein \textbf{Endzustand} $\rightarrow$ der neue Zustand wird ein Endzustand
      \end{enumerate}
 \end{enumerate}
-\pagebreak
-\textit{\underline{Beispiel:}}
+
+\hspace{-0.65cm} \textit{\underline{Beispiel:}}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\linewidth]{nfatodfa.png}
@@ -326,6 +339,7 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 		\item[-] $(\beta \ | \ \gamma) \alpha \equiv \beta \alpha \ | \ \gamma \alpha$
 	\end{itemize}
 
+\pagebreak
 \item \textbf{Idempotenz:}
 	\begin{itemize}
 		\item[-] $\alpha \ | \ \alpha \equiv \alpha$
@@ -341,8 +355,30 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 	\end{itemize}
 \end{itemize}
 
-\pagebreak
 
+\subsection{Strukturelle Induktion} % (fold)
+\label{sub:strukturelle_induktion}
+Um zu beweisen, dass eine Eigenschaft $P(r)$ für alle regulären Ausdrücke gilt.
+\begin{enumerate}
+	\item Zeige $P(\emptyset)$
+	\item Zeige $P(\epsilon)$
+	\item Zeige $P(a)$ für alle $a \in \Sigma$
+	\item Unter der Annahme $P(\alpha)$ und $P(\beta)$ (I.H.), zeige $P(\alpha \beta)$ \\$\rightarrow$ verwende $L(\alpha \beta) =L(\alpha)L(\beta)$
+	\item Unter der Annahme $P(\alpha)$ und $P(\beta)$ (I.H.), zeige $P(\alpha \ | \ \beta)$ \\$\rightarrow$ verwende $L(\alpha \ | \ \beta) =L(\alpha) \cup L(\beta)$
+	\item Unter der Annahme $P(\alpha)$ (I.H.), zeige $P(\alpha^*)$ \\$\rightarrow$ verwende $L(\alpha^*) = L(\alpha)^*$
+
+\end{enumerate}
+
+
+\hspace{-0.65cm} \textit{\underline{Beispiel:}} $empty(r)$ entscheidet, ob $L(r) = \emptyset$. Zeige die Korrektheit der Konstruktion:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.65\linewidth]{strukturelleinduktion}
+  \label{fig:strukturelleinduktion}
+\end{figure}
+
+\pagebreak
 \subsection{RE $\rightarrow$ $\epsilon$-NFA} % (fold)
 \label{sub:rE_rightarrow_epsilon_nFA}
 \begin{enumerate}
@@ -368,6 +404,8 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
   \label{fig:retonfabeispiel_png}
 \end{figure}
 \pagebreak
+
+
 \subsection{$\epsilon$-NFA $\rightarrow$ RE} % (fold)
 \label{sub:_epsilon_nFA_rightarrow_rE}
 
@@ -483,13 +521,12 @@ mache $X \equiv aX_1$
 \item Rechenregeln über REs und Ardens Lemma verwenden
 \end{enumerate}
 
-\pagebreak
 
 \subsection{Konversionen bezüglich regulärer Sprachen} % (fold)
 \label{sub:konversionen_bezüglich_regulärer_sprachen}
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.65\linewidth]{konversionregular}
+  \includegraphics[width=0.46\linewidth]{konversionregular}
   \label{fig:konversionregular}
 \end{figure}
 
@@ -599,7 +636,137 @@ Gleich wie die Produktkonstruktion bis auf 4.
 
 \subsection{Minimierung von FAs} % (fold)
 \label{sub:minimierung_der_fAs}
+\begin{itemize}
+	\item Zustände $p$ und $q$ sind \textbf{unterscheidbar}, wenn $\exists w \in \Sigma^*$ mit $\hat{\delta}(p,w) \in F$ und $\hat{\delta}(q,w) \not\in F$ oder umgekehrt
+\item Zustände $p$ und $q$ sind \textbf{äquivalent}, wenn $\forall w \in \Sigma^*$ mit $\hat{\delta}(p,w) \in F$ $\Leftrightarrow$ $\hat{\delta}(q,w) \in F$
+\item Gilt $p \in F$ und $q \not\in F$, dann sind $p$ und $q$ unterscheidbar
+\item Sind $\delta(p,a)$ und $\delta(q,a)$ unterscheidbar, dann auch $p$ und $q$
 
+
+\end{itemize}
+
+\subsection{Minimierungsalgortihmus für DFAs} % (fold)
+\label{sub:minimierungsalgortihmus_für_dFAs}
+
+\begin{enumerate}
+  \item Konstruiere die Treppe $\forall q \in Q$
+  \item Markiere Endzustände und Nichtendzustände mit einem $\epsilon$
+  \item Für alle unmarkierten Paare $(q, p)$: Falls $(\delta(q, a), \delta(p, a))$ markiert, markiere das Paar $(q,p)$ mit $a$
+	  \begin{enumerate}
+	    \item Falls es $b$ im Kästchen von $(\delta(q, a), \delta(p, a))$ gibt, dann markiere das Paar $(q,p)$ mit $ab$
+	  \end{enumerate}
+  \item Für alle unmarkierten Paare $(q, p)$: Schmelze $q$ und $p$ zusammen, evtl. markiere das Paar mit $=$
+\end{enumerate}
+
+\pagebreak
+
+\textit{\underline{Beispiel:}}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.65\linewidth]{minimierungdfa1}
+  \includegraphics[width=0.3\linewidth]{minimierungdfa2}
+  \label{fig:minimierungdfa1}
+\end{figure}
+
+
+\subsection{Äquivalenz von Zuständen eines DFAs} % (fold)
+\label{sub:äquivalenz_von_zuständen_eines_dFAs}
+\begin{itemize}
+	\item \textbf{Äquivalenzklasse:} $[p]_{\equiv_M} = \{q \ | \ p \equiv_M q\}$, Menge der Zustände, die mit $p$ äquivalent sind
+	\item \textbf{Quotientenmenge:} $Q/\!\equiv_M \  = \{ [p]_{\equiv_M} \ | \ p \in Q\}$, Menge der Äquivalenzklassen
+
+  \item $p \equiv_M q \Leftrightarrow L_M(p) = L_M(q)$
+\begin{itemize}
+	\item $L_M(q) = \{w \in \Sigma^* \ | \ \hat{\delta}(q,w) \in F\}$, Sprache vom Zustand $q$
+  \item Zwei Zustände sind äquivalent wenn sie die gleiche Sprache erkennen
+\item \textbf{Fakt:} $|Q/\!\equiv_M \!|$ = Anzahl der Sprachen, die von Zuständen von $M$ erkannt werden
+
+
+\end{itemize}
+\item \textbf{Quotientenautomat:} $M/ \!\equiv \ = (Q/\!\equiv, \Sigma, \delta',[q_0]_{\equiv}, F/\!\equiv)$ mit $\delta'([p]_{\equiv}, a) = [\delta(p,a)]_{\equiv}$
+\item Quotientenautomat $M/\!\equiv$ ist ein \textbf{minimaler DFA} für $L(M)$
+\item $L(M/\!\equiv) = L(M)$\end{itemize}
+\subsection{Residualsprache, Äquivalenz von Wörtern} % (fold)
+\label{sub:residualsprache}
+
+\begin{itemize}
+	\item $L^w = \{z \in \Sigma^* \ | \ wz \in L\}$, Residualsprache von $L$ bzgl. $w \in \Sigma^*$
+	\item $u \equiv_L v \Leftrightarrow L^u = L^v$
+		\begin{itemize}
+		  \item Zwei Wörter sind äquivalent wenn sie die gleiche Residualsprache haben
+		\item \textbf{Fakt:} $|\Sigma^*/\!\equiv_L\!|$ = Anzahl der Residualsprachen von $L$
+		\end{itemize}
+
+\item \textbf{Fakt:} $|Q/\!\equiv_M\!| = |\Sigma^*/\!\equiv_L\!|$, \textbf{Anzahl der Residualsprachen entspricht der Anzahl der Zustände im minimalen Automat} 
+\end{itemize}
+
+\subsection{Myhill-Nerode Relation} % (fold)
+\label{sub:myhill_nerode_relation}
+\begin{itemize}
+   \item Eine Sprache $L$ ist \textbf{regulär} gdw.\ Anzahl der Residualsprachen von $L$ \textbf{endlich} 
+
+   \item \textbf{Beweis mittels Myhill-Nerode Relation:} $L=\{a^ib^ic^i \ | \ i \in \mathbb{N}\}$
+	   \begin{enumerate}
+		   \item Bestimmen einer unendliche Menge von Wörtern mit unterschiedlichen Residualsprachen: $\{a^ib^i \ | \ i \in \mathbb{N}\}$
+		   \item Sei $i,j \in \mathbb{N}$ verschieden. Dann $a^ib^ic^i \in L$, aber $a^jb^jc^i \not\in L$. Daher $L^{a^ib^i} \neq L^{a^jb^j}$.
+		\item Somit sind alle Residualsprachen unterschiedlich und $L$ \textbf{keine reguläre} Sprache
+	   \end{enumerate}
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Kanonischer Minimalautomat} % (fold)
+\label{sub:kanonischer_minimalautomat}
+
+\begin{itemize}
+	\item $M_L = \{R_L, \Sigma, \delta_L, L, F_L\}$ mit $\delta_L(R,a) = R^a$ und $F_L = \{R \in R_L \ | \ \epsilon \in R\}$, kanonischer Minimalautomat $M_L$ mit $L(M_L) = L$
+	\item $R_L$, Menge der Residualsprachen von $L$ 
+
+\item \textbf{Durch Umbenennung von Zuständen} von jedem minimalen DFA bekommt man den \textbf{kanonischen Minimalautomat}
+
+\item Kanonischer Minimalautomat $M_L$ ist \textbf{gleich gross} wie Quotientenautomat und damit ein \textbf{minimaler DFA} für $L(M)$
+
+\item \textit{\underline{Beispiel:}} $L = L((bba \ | \ bab)^*)$ mit $\Sigma = \{a, b\}$
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{kanonischerdfa.png}
+  \label{fig:kanonischerdfa_png}
+\end{figure}
+\end{itemize}
+
+\subsection{Regulärität der Sprachen} % (fold)
+\label{sub:regulärität_der_sprachen}
+Eine Sprache ist \textbf{regulär}
+
+\begin{itemize}
+  \item gdw.\ sie von einer \textbf{DFA, NFA, $\epsilon$-NFA, RE akzeptiert wird}
+\item gdw.\ sie durch \textbf{Abschlusseigenschaften der regulären Sprachen} entsteht
+
+\item gdw.\ sie \textbf{endliche Anzahl von Residualsprachen hat}
+\end{itemize}
+
+\pagebreak
+
+\hspace{-0.65cm} Eine Sprache ist \textbf{nicht regulär}
+\begin{itemize}
+	\item gdw.\ für sie \textbf{Pumping-Lemma nicht gilt}
+	\item gdw.\ sie \textbf{unendliche Anzahl von Residualsprachen hat (Myhill-Nerode)}
+\end{itemize}
+\section{Kontextfreie Sprachen (CFL)} % (fold)
+\label{sec:kontextfreie_sprachen}
+
+\subsection{Kontextfreie Grammatik (CFG)} % (fold)
+\label{sub:kontextfreie_grammatik_cFG}
+Produktionen folgender Gestalt:
+\begin{itemize}
+  \item $X \rightarrow \alpha$, mit $\alpha \in (V \cup \Sigma)^*$
+
+\end{itemize}
 
 
 
