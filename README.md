@@ -5,5 +5,4 @@
 4. Link zu der offiziellen Webseite vom Jahr 2022: https://www.cs.cit.tum.de/tcs/lehre/ss22/theo/
 
 # TODO
-1. Abdecken des Stoffs 114-x
-2. Aktualisieren von THEO_TU bezüglich 3. TÜ
+1. Aktualisieren von THEO_TU bezüglich 3. TÜ
