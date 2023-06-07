@@ -356,9 +356,9 @@ Für jede NFA mit $n$ Zuständen kann der DFA max bis zu $2^n$ Zustände haben.
 \end{itemize}
 
 
-\subsection{Strukturelle Induktion} % (fold)
+\subsection{Strukturelle Induktion für REs} % (fold)
 \label{sub:strukturelle_induktion}
-Um zu beweisen, dass eine Eigenschaft $P(r)$ für alle regulären Ausdrücke gilt.
+Um zu beweisen, dass eine Eigenschaft $P(r)$ für alle regulären Ausdrücke gilt:
 \begin{enumerate}
 	\item Zeige $P(\emptyset)$
 	\item Zeige $P(\epsilon)$
@@ -762,10 +762,48 @@ Eine Sprache ist \textbf{regulär}
 
 \subsection{Kontextfreie Grammatik (CFG)} % (fold)
 \label{sub:kontextfreie_grammatik_cFG}
-Produktionen folgender Gestalt:
+\begin{itemize}
+	\item Kontextfreie Grammatik $G = (V, \Sigma, P, S)$ mit $P \subseteq V \times (V \cup \Sigma)^*$
+  \item Produktionen folgender Gestalt:
 \begin{itemize}
   \item $X \rightarrow \alpha$, mit $\alpha \in (V \cup \Sigma)^*$
+\end{itemize}
 
+\item $\alpha_1 \rightarrow_G \alpha_2 \rightarrow_G \ldots \rightarrow_G \alpha_n$ nennt man eine \textbf{Linksableitung} gdw.\ in jedem Schritt \textbf{das linkeste Nichtterminal} in $\alpha_i$ ersetzt wird
+\item \textbf{Rechtsableitung} analog zu Linksableitung
+\end{itemize}
+
+\subsection{Induktive Definition einer Sprache mittels Grammatik} % (fold)
+\label{sub:induktive_definition}
+
+\begin{itemize}
+  \item Sei $G$ eine Grammatik: $S \rightarrow \epsilon \ | \ [S] \ | \ SS$ 
+\item Um zu zeigen, dass $G$ die Menge aller balancierten Klammerwörter erzeugt, betrachten wir die Grammatik als \textbf{induktive Definition einer Sprache $L_G(S)$}
+\item \textbf{Induktive Definition von $L_G(S):$}
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.55\linewidth]{induktivedef2}
+	\end{figure}
+\item Produktionen ($\rightarrow$) erzeugen Wörter \textbf{top-down}: Nichtterminal $\rightarrow$ Wort
+\item Induktive Definition ($\Longrightarrow$) erzeugt Wörter \textbf{buttom-up}: kleinere Wörter $\Longrightarrow$ grössere Wörter
+\item Induktive Definition betrachtet nur Wörter aus $\Sigma^*$
+
+\end{itemize}
+
+\pagebreak
+
+\subsection{(Strukturelle) Induktion über die Erzeugung eines Wortes} % (fold)
+\label{sub:_strukturelle_induktion_über_die_erzeugung_von_einem_wort}
+\begin{itemize}
+  \item Um zu zeigen, dass für alle $u \in L_G(S)$ eine Eigenschaft $P(u)$ gilt, zeige:
+	  \begin{figure}[h!]
+	    \centering
+	    \includegraphics[width=0.45\linewidth]{induktivedef1}
+	    \label{fig:induktivedef1}
+	  \end{figure}
+
+
+\item \textit{\underline{Beispiel:}} Grammatik $S \rightarrow \epsilon \ | \ [S] \ | \ SS$ erzeugt genau die Menge der balancierten Wörter
 \end{itemize}
 
 
