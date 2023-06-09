@@ -773,17 +773,24 @@ Eine Sprache ist \textbf{regulär}
 \item \textbf{Rechtsableitung} analog zu Linksableitung
 \end{itemize}
 
-\subsection{Induktive Definition einer Sprache mittels Grammatik} % (fold)
+\subsection{Induktive  Definition einer Sprache mittels Grammatik} % (fold)
 \label{sub:induktive_definition}
 
 \begin{itemize}
-  \item Sei $G$ eine Grammatik: $S \rightarrow \epsilon \ | \ [S] \ | \ SS$ 
-\item Um zu zeigen, dass $G$ die Menge aller balancierten Klammerwörter erzeugt, betrachten wir die Grammatik als \textbf{induktive Definition einer Sprache $L_G(S)$}
-\item \textbf{Induktive Definition von $L_G(S):$}
-	\begin{figure}[h!]
-	  \centering
-	  \includegraphics[width=0.55\linewidth]{induktivedef2}
-	\end{figure}
+  \item Sei $G$ eine Grammatik: $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ 
+\item Um zu zeigen, dass $G$ die Menge aller \textit{nicht überziehenden} Wörter erzeugt, betrachten wir die Grammatik als \textbf{induktive Definition einer Sprache $L_G(S)$}
+
+\item Wort $w$ ist überziehend gdw.\ $\exists i$, sodass $\Delta (w_1 \ldots w_i) < 0$ mit $\Delta(w) = |w|_+ - |w|_-$
+
+\item \textbf{nicht überziehend:} $\epsilon, ++-+-$
+\item \textbf{überziehend:} $-+, +-+--++$
+\item \textbf{Induktive Definition von $L_G(S)$:}
+\begin{itemize}
+  \item $\epsilon \in L_G(S)$
+  \item $u \in L_G(S) \Longrightarrow +u \in L_G(S)$
+\item $u \in L_G(S) \land v \in L_G(S) \Longrightarrow +u-v \in L_G(S)$
+\end{itemize}	
+
 \item Produktionen ($\rightarrow$) erzeugen Wörter \textbf{top-down}: Nichtterminal $\rightarrow$ Wort
 \item Induktive Definition ($\Longrightarrow$) erzeugt Wörter \textbf{buttom-up}: kleinere Wörter $\Longrightarrow$ grössere Wörter
 \item Induktive Definition betrachtet nur Wörter aus $\Sigma^*$
@@ -796,14 +803,21 @@ Eine Sprache ist \textbf{regulär}
 \label{sub:_strukturelle_induktion_über_die_erzeugung_von_einem_wort}
 \begin{itemize}
   \item Um zu zeigen, dass für alle $u \in L_G(S)$ eine Eigenschaft $P(u)$ gilt, zeige:
-	  \begin{figure}[h!]
-	    \centering
-	    \includegraphics[width=0.45\linewidth]{induktivedef1}
-	    \label{fig:induktivedef1}
-	  \end{figure}
+\begin{itemize}
+  \item $P(\epsilon)$
+  \item $P(u) \Longrightarrow P(+u)$
+\item $P(u) \land P(v) \Longrightarrow P(uv)$
+\end{itemize}
+
+\item \textit{\underline{Beispiel:}} Grammatik $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ erzeugt die Wörter, die nicht überziehend sind.
+\begin{itemize}
+
+\item 
 
 
-\item \textit{\underline{Beispiel:}} Grammatik $S \rightarrow \epsilon \ | \ [S] \ | \ SS$ erzeugt genau die Menge der balancierten Wörter
+\end{itemize}
+
+
 \end{itemize}
 
 
