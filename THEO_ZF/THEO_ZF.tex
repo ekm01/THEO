@@ -812,14 +812,18 @@ Eine Sprache ist \textbf{regulär}
 \item \textit{\underline{Beispiel:}} Grammatik $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ erzeugt die Wörter, die nicht überziehend sind.
 \begin{itemize}
 
-\item 
+\item Induktionsbasis: $\epsilon \in L_G(S)$ ist nicht überziehend
+\item Induktionsschritt: Seien $u, v$ nicht überziehende Wörter. Es gibt 2 Fälle:
+	\begin{enumerate}
+		\item $w=+u$: Für beliebiges $i$ gilt $\Delta(w_1 \dots w_i) = 1 + \Delta(u_1 \ldots u_{i-1})$. Da $u$ nicht überziehend ist, folgt $\Delta(u_1 \ldots u_{i-1}) \ge 0$ und somit $\Delta(w_1 \ldots w_i) \ge 1 \ge 0$. Also ist $w$ auch nicht überziehend.
+		\item $w=+u-v$: Für $i \in \{1, \ldots, |u|+2\}$ wissen wir bereits $\Delta(w_1 \ldots w_i) \ge 0$, analog zum ersten Fall. Für $i > |u| + 2$ gilt nun $\Delta(w_1 \ldots w_i) = \Delta(+u-v_1 \ldots v_j)$, mit $j = i - |u| - 2$. Es folgt $\Delta(+u-v_1 \ldots v_j) = \Delta(u) + \Delta(v_1 \ldots v_j) \ge 0$, da sowohl $u$ als auch $v$ nicht überziehend ist.
+	\end{enumerate}
 
 
 \end{itemize}
 
 
 \end{itemize}
-
 
 
 \end{document}
