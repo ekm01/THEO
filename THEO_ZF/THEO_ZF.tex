@@ -778,17 +778,17 @@ Eine Sprache ist \textbf{regulär}
 
 \begin{itemize}
   \item Sei $G$ eine Grammatik: $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ 
-\item Um zu zeigen, dass $G$ die Menge aller \textit{nicht überziehenden} Wörter erzeugt, betrachten wir die Grammatik als \textbf{induktive Definition einer Sprache $L_G(S)$}
+\item Um zu zeigen, dass $G$ die Menge aller \textit{nicht überziehenden} Wörter erzeugt, betrachten wir die Grammatik als \textbf{induktive Definition einer Sprache $L(G)$}
 
 \item Wort $w$ ist überziehend gdw.\ $\exists i$, sodass $\Delta (w_1 \ldots w_i) < 0$ mit $\Delta(w) = |w|_+ - |w|_-$
 
 \item \textbf{nicht überziehend:} $\epsilon, ++-+-$
 \item \textbf{überziehend:} $-+, +-+--++$
-\item \textbf{Induktive Definition von $L_G(S)$:}
+\item \textbf{Induktive Definition von $L(G)$:}
 \begin{itemize}
-  \item $\epsilon \in L_G(S)$
-  \item $u \in L_G(S) \Longrightarrow +u \in L_G(S)$
-\item $u \in L_G(S) \land v \in L_G(S) \Longrightarrow +u-v \in L_G(S)$
+  \item $\epsilon \in L(G)$
+  \item $u \in L(G) \Longrightarrow +u \in L(G)$
+\item $u \in L(G) \land v \in L(G) \Longrightarrow +u-v \in L(G)$
 \end{itemize}	
 
 \item Produktionen ($\rightarrow$) erzeugen Wörter \textbf{top-down}: Nichtterminal $\rightarrow$ Wort
@@ -802,7 +802,8 @@ Eine Sprache ist \textbf{regulär}
 \subsection{(Strukturelle) Induktion über die Erzeugung eines Wortes} % (fold)
 \label{sub:_strukturelle_induktion_über_die_erzeugung_von_einem_wort}
 \begin{itemize}
-  \item Um zu zeigen, dass für alle $u \in L_G(S)$ eine Eigenschaft $P(u)$ gilt, zeige:
+	\item $w \in L(G) \Longrightarrow$ beweist man mit \textbf{Induktion über Erzeugung von $w$}
+ \item Um zu zeigen, dass für alle $u \in L(G)$ eine Eigenschaft $P(u)$ gilt, zeige:
 \begin{itemize}
   \item $P(\epsilon)$
   \item $P(u) \Longrightarrow P(+u)$
@@ -812,7 +813,7 @@ Eine Sprache ist \textbf{regulär}
 \item \textit{\underline{Beispiel:}} Grammatik $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ erzeugt die Wörter, die nicht überziehend sind.
 \begin{itemize}
 
-\item Induktionsbasis: $\epsilon \in L_G(S)$ ist nicht überziehend
+\item Induktionsbasis: $\epsilon \in L(G)$ ist nicht überziehend
 \item Induktionsschritt: Seien $u, v$ nicht überziehende Wörter. Es gibt 2 Fälle:
 	\begin{enumerate}
 		\item $w=+u$: Für beliebiges $i$ gilt $\Delta(w_1 \dots w_i) = 1 + \Delta(u_1 \ldots u_{i-1})$. Da $u$ nicht überziehend ist, folgt $\Delta(u_1 \ldots u_{i-1}) \ge 0$ und somit $\Delta(w_1 \ldots w_i) \ge 1 \ge 0$. Also ist $w$ auch nicht überziehend.
@@ -824,6 +825,30 @@ Eine Sprache ist \textbf{regulär}
 
 
 \end{itemize}
+
+\subsection{Induktion über die Länge des Wortes} % (fold)
+\label{sub:induktion_über_die_länge_des_wortes}
+\begin{itemize}
+	\item $P(w) \Longrightarrow w \in L(G)$ beweist man mit \textbf{Induktion über }$|w|$
+	\item \textit{\underline{Beispiel:}} Die nicht überziehenden Wörter werden durch die Grammatik $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ erzeugt.
+		\begin{itemize}
+		\item Induktionsannahme: Für nicht überziehendes $w$ gilt $w \in L(G)$
+		  \item Induktionsbasis: Für $|w| = 0$ gilt $w = \epsilon \in L(G)$
+\item Induktionsschritt:
+	\begin{enumerate}
+	  \item Falls $w = +u$ für ein $u$ nicht überziehend, dann wissen wir nach Induktionsannahme, dass $u \in L(G)$. Daraus folgt $S \rightarrow +S-S \rightarrow^* +u = w$ und somit $w \in L(G)$.
+	\item Falls $w = +u-v$ für $u,v$ nicht überziehend: Nach Induktionsannahme gilt $u,v \in L(G)$, also erhalten wir $S \rightarrow +S-S \rightarrow^*+u-S \rightarrow^* +u-v = w$ und somit $w \in L(G)$.
+	\end{enumerate}
+		\end{itemize}
+\end{itemize}
+
+
+\subsection{Syntaxbaum} % (fold)
+\label{sub:syntaxbaum}
+
+
+
+
 
 
 \end{document}
