@@ -744,7 +744,7 @@ Gleich wie die Produktkonstruktion bis auf 4.
 Eine Sprache ist \textbf{regulär}
 
 \begin{itemize}
-  \item gdw.\ sie von einer \textbf{DFA, NFA, $\epsilon$-NFA, RE akzeptiert wird}
+  \item gdw.\ sie von einer \textbf{DFA, NFA, $\epsilon$-NFA, RE, rechtslinearen Grammatik akzeptiert wird}
 \item gdw.\ sie durch \textbf{Abschlusseigenschaften der regulären Sprachen} entsteht
 
 \item gdw.\ sie \textbf{endliche Anzahl von Residualsprachen hat}
@@ -773,7 +773,7 @@ Eine Sprache ist \textbf{regulär}
 \item \textbf{Rechtsableitung} analog zu Linksableitung
 \end{itemize}
 
-\subsection{Induktive  Definition einer Sprache mittels Grammatik} % (fold)
+\subsection{Induktive Definition einer Sprache mittels Grammatik} % (fold)
 \label{sub:induktive_definition}
 
 \begin{itemize}
@@ -843,11 +843,51 @@ Eine Sprache ist \textbf{regulär}
 \end{itemize}
 
 
-\subsection{Syntaxbaum} % (fold)
+\subsection{Syntaxbaum, Mehrdeutigkeit} % (fold)
 \label{sub:syntaxbaum}
+\begin{itemize}
+\item Für eine CFG und ein $w \in \Sigma^*$ sind folgende Bedingungen äquivalent:
+	\begin{itemize}
+	  \item $A \rightarrow_G^* w$
+	\item $w \in L_G(A)$ (induktive Definition)
+	\item Es gibt einen Syntaxbaum mit Wurzel $A$, dessen Rand
+(Blätter von links nach rechts gelesen) das Wort $w$ ist
+
+
+\end{itemize}
+\item Syntaxbaum für eine Ableitung mit Grammatik $S \rightarrow \epsilon \ | \ [S] \ | \ SS$: $w = \epsilon$, $w = []$, kein gültiges Baum
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.4\linewidth]{syntaxbaum}
+  \label{fig:syntaxbaum}
+\end{figure}
+
+\item CFG $G$ \textbf{mehrdeutig} gdw.\ es gibt $w \in L(G)$, das \textbf{zwei verschiedene Syntaxbäume} hat
+\item CFL $L$ \textbf{inhärent mehrdeutig} gdw.\ \textbf{jede CFG} $G$ mit $L(G) = L$ \textbf{mehrdeutig} 
+\item \textit{\underline{Beispiel:}} $S \rightarrow \epsilon \ | \ +S-S \ | \ +S \ | \ \epsilon$ und $w = ++-$ $\Leftrightarrow$ $L_G(S)$ ist mehrdeutig
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.4\linewidth]{syntaxbaum1.png}
+	  \label{fig:syntaxbaum1_png}
+	\end{figure}
 
 
 
+\end{itemize}
+
+
+\subsection{Chomsky-Normalform (CNF)} % (fold)
+\label{sub:chomsky_normalform_cNF_}
+\begin{itemize}
+  \item Eine CFG $G$ ist in Chomsky-Normalform gdw.\ alle Produktionen eine der Formen haben: $A \rightarrow a$ oder $A \rightarrow BC$
+\item $\epsilon$-Produktion: $A \rightarrow \epsilon$
+\item Kettenproduktion: $A \rightarrow B$
+
+  \item Zu jeder CFG $G$ kann man eine CFG $G'$ in Chomsky-Normalform konstruieren, die \textbf{keine} $\epsilon$-Produktionen und Kettenproduktionen enthält, so dass gilt $L(G') = L(G) \setminus \{\epsilon\}$
+
+
+
+\end{itemize}
 
 
 
