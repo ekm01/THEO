@@ -591,7 +591,7 @@ Gleich wie die Produktkonstruktion bis auf 4.
   \item \textit{\underline{Beispiel:}} $L = \{0^{m^{2}} \ | \ m \ge 0\}$
 \\ \\ Angenommen $L$ sei regulär.
 \\Sei $n$ eine Pumping-Lemma-Zahl für $L$.
-\\Wähle $z = 0^{n^{2}} \in L$. Sei $uvw$ ist eine Zerlegung von $z$ mit $1 \le |v| \le |uv| \le n$.
+\\Wähle $z = 0^{n^{2}} \in L$. Sei $uvw$ eine Zerlegung von $z$ mit $1 \le |v| \le |uv| \le n$.
 \\ Zeige, dass $uv^iw \not\in L$ für den Fall $i = 2$ gilt:
 \\ $n^2 = |z| = |uvw| < |uv^2w| \le n^2 + n \le n^2 + 2n + 1 = (n + 1)^2$
 \\ Da es keine Quadratzahl zwischen $n^2$ und $(n+1)^2$ geben kann, ist $uv^2w \not\in L$, damit ist $L$ nicht regulär.
@@ -885,9 +885,75 @@ Eine Sprache ist \textbf{regulär}
 
   \item Zu jeder CFG $G$ kann man eine CFG $G'$ in Chomsky-Normalform konstruieren, die \textbf{keine} $\epsilon$-Produktionen und Kettenproduktionen enthält, so dass gilt $L(G') = L(G) \setminus \{\epsilon\}$
 
+\pagebreak
+
+\item \textbf{Konstruktion:}
+	\begin{enumerate}
+	  \item Füge für jedes $a \in \Sigma$ mit der Länge $\ge 2$ ein neues Nichtterminal $X_a$ und eine neue Produktion $X_a \rightarrow a$ hinzu:
+	\begin{itemize}
+		\item $A \rightarrow aBC$ wird zu $A \rightarrow X_aBC$
+			\\ \hspace*{2.9cm}$X_a \rightarrow a$
+	\end{itemize}
+
+\item Ersetze jede Produktion der Form $A \rightarrow B_1B_2\ldots B_k$ mit der Länge $k \ge 3$:
+	\begin{itemize}
+		\item $A \rightarrow BCD$ wird zu $A \rightarrow BX_{CD}$
+\\ \hspace*{3cm}$X_{CD} \rightarrow CD$
+
+\end{itemize}
+
+
+\item Eliminiere alle $\epsilon$-Produktionen, indem wir zuerst $\epsilon$ in Produktionen einsetzen und dann eliminieren:
+	\begin{itemize}
+	  \item $A \rightarrow XY$ wird zu $A \rightarrow X\epsilon$ wird zu $A \rightarrow X$
+		  \\$Y \rightarrow \epsilon$ \hspace*{1.6cm} $Y \rightarrow \epsilon$
+	\end{itemize}
+
+
+\item Eliminiere alle Kettenproduktionen, indem wir zuerst Nichtterminale in Produktionen einsetzen und dann eliminieren
+	\begin{itemize}
+		\item $A \rightarrow X \ | \ YZ$ \hspace*{0.5cm} wird zu \hspace*{0.5cm} $A \rightarrow YZ \ | \ x \ | \ DL \ | \ B$
+		  \\ $X \rightarrow x \ | \ DL \ | \ B$ \hspace*{1.8cm} $B \rightarrow b$
+\\ $B \rightarrow b$
+\item wird zu $A \rightarrow YZ \ | \ x \ | \ DL \ | \ b$
+	\end{itemize}
+	\end{enumerate}
 
 
 \end{itemize}
+
+\subsection{Greibach-Normalform} % (fold)
+\label{sub:greibach_normalform}
+\begin{itemize}
+	\item Eine CFG ist in Greibach-Normalform gdw.\ alle Produktionen die Form $A \rightarrow aA_1 \ldots A_n$ haben
+	\item Zu jeder CFG $G$ gibt es eine CFG $G'$ in Greibach-Normalform mit $L(G') = L(G) \setminus \{\epsilon\}$
+\end{itemize}
+
+\subsection{Pumping Lemma für CFLs} % (fold)
+\label{sub:pumping_lemma_für_cFL}
+\begin{itemize}
+  \item Für jede CFL $L$ gibt es ein $n > 0$, so dass sich jedes Wort $z \in L$ mit $|z| \ge n$ zerlegen lässt in $z = uvwxy$, dass
+	  \begin{enumerate}
+	    \item $vx \neq \epsilon$ bzw.\ $|vx| \ge 1$
+	\item $|vwx| \le n$
+	\item $\forall i \ge 0. \ uv^iwx^iy \in L$
+	  \end{enumerate}
+
+  \item \textit{\underline{Beispiel:}} $L = \{a^ib^ic^i \ | \ i \in \mathbb{N} \}$
+\\\\Angenommen $L$ sei kontextfrei.
+\\Sei $n$ eine Pumping-Lemma-Zahl für $L$.
+\\Wähle $z = a^nb^nc^n \in L$. Sei $uvwxy$ eine Zerlegung von $z$ mit $vx \neq \epsilon$ und $|vwx| \le n$. Wir betrachten nun 2 Fälle:
+\begin{enumerate}
+\item $uwx$ enthält nur $a$s oder $b$s oder $c$s: Für $i = 2$ erhalten wir $uv^2wx^2y = a^{i + 2|v| + 2|x|}b^ic^i$. Da $|vx| \ge 1$, gilt $uv^2wx^2y \not\in L$.
+\item $uwx$ enthält nur $a$s und $b$s oder $b$s und $c$s: Hier muss $vx$ mindestens ein $a$ und ein $b$ enthalten. Damit gilt aber $|uv^2wx^2y|_a > |uv^2wx^2y|_c$. Also $uv^2wx^2y \not\in L$.
+\end{enumerate}
+
+
+\end{itemize}
+
+
+\subsection{Abschlusseigenschaften der CFLs} % (fold)
+\label{sub:abschlusseigenschaften_der_cFLs}
 
 
 
