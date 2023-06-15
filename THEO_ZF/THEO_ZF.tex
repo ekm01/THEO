@@ -534,17 +534,17 @@ mache $X \equiv aX_1$
 
 \subsection{Abschlusseigenschaften regulärer Sprachen} % (fold)
 \label{sub:abschlusseigenschaften_regulärer_sprachen}
-Seien $R, R_1, R_2 \subseteq \Sigma^*$ reguläre Sprachen, dann sind auch
+Seien $L, L_1, L_2 \subseteq \Sigma^*$ reguläre Sprachen, dann sind auch
 \begin{itemize}
-  \item $R_1 R_2$
-\item $R_1 \cup R_2$, $R_1 \cap R_2$, $R_1 \setminus R_2$
-\item $\overline{R}$ bzw. $\Sigma^* \setminus R$
+  \item $L_1 L_2$
+\item $L_1 \cup L_2$, $L_1 \cap L_2$, $L_1 \setminus L_2$
+\item $\overline{L}$ bzw. $\Sigma^* \setminus L$
 
-\item $R^*$
-\item $R^R$ (Spiegelung von $R$)
+\item $L^*$
+\item $L^R$ (Spiegelung von $L$)
 \end{itemize}
 
-\subsection{Komplementierung $\overline{R}$ bezüglich FAs} % (fold)
+\subsection{Komplementierung $\overline{L}$ bezüglich FAs} % (fold)
 \label{sub:komplementierung_bezüglich_fAs}
 \begin{itemize}
   \item \textbf{Für DFAs:} Vertauschen von Endzuständen und Nicht-Endzuständen
@@ -963,9 +963,107 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \end{itemize}
 
 
+\subsection{Erzeugend, Erreichbar, Nützlich} % (fold)
+\label{sub:erzeugend_erreichbar_nützlich}
+\begin{itemize}
+\item Sei $G = (V,\Sigma, P, S)$ CFG. Ein Symbol $X \in V \cup \Sigma$ ist
+\begin{itemize}
+\item \textbf{erzeugend} gdw.\ es eine Ableitung $X \rightarrow_G^* w \in \Sigma^*$ gibt
+\item \textbf{erreichbar} gdw.\ es eine Ableitung $S \rightarrow_G^* \alpha X \beta$ gibt
+  \item \textbf{nützlich} gdw.\ erzeugend und erreichbar
 
 
+\end{itemize}
 
+\item Bekommt man eine Grammatik $G'$ mit $L(G') = L(G)$, die nur \textbf{nützliche Symbole} enthält, durch:
+	\begin{enumerate}
+	  \item Elimination der \textbf{nicht erzeugenden} Symbole
+\item Elimination der \textbf{nicht erreichbaren} Symbole
+	\end{enumerate}
+
+\item Menge der erzeugenden Symbole einer CFG ist berechenbar
+\item Menge der erreichbaren Symbole einer CFG ist berechenbar
+\end{itemize}
+
+\subsection{Cocke-Younger-Kasami-Algorithmus (CYK)} % (fold)
+\label{sub:cocke_younger_kasami_algorithmus_cYK_}
+\begin{itemize}
+  \item \textbf{Wortproblem} ist für eine CFG $G$ mittels CYK-Algorithmus in Zeit $O(|w|^3)$ entscheidbar
+	\item \textbf{Algorithmus:} $w \in L(G)$?
+		\begin{enumerate}
+		  \item Konstruiere die Treppe (Breite = Höhe = $|w|$) und beschrifte jede Spalte von unten nach oben: Für 1. Spalte $1,1-1,2-\ldots-1,|w|$; für 3. Spalte $3,3-3,4-\ldots-3,|w|$
+		\item Fülle die erste Reihe mit Nichtterminalen ein, die die einzelnen Buchstaben des Wortes erzeugen
+		\item Fülle die anderen Kästchen mit Nichtterminalen nach Beschriftungen ein: Für $1,2$ konkateniere $1,1$ $2,2$; für $1,4$ konkateniere $1,1$ $2,4$ und $1,2$ $3,4$ und $1,3$ $4,4$
+		\item Wenn es im Kästchen $1, |w|$ das Startsymbol gibt, dann gilt $w \in L(G)$, wenn nicht $w \not\in L(G)$
+
+		\end{enumerate}
+
+	\item \textit{\underline{Beispiel:}} $baaba \in L(G)$?
+		\begin{figure}[h!]
+		  \centering
+		  \includegraphics[width=0.5\linewidth]{cykexample}
+		  \label{fig:cykexample}
+		\end{figure}
+\end{itemize}
+
+\subsection{Nicht Entscheidbare Probleme für CFGs} % (fold)
+\label{sub:nicht_entscheidbare_probleme_für_cFGs}
+\begin{itemize}
+  \item \textbf{Äquivalenz:} $L(G_1) = L(G_2)$
+\item \textbf{Schnittproblem:} $L(G_1) \cap L(G_2)$
+\item \textbf{Regularität:} $L(G)$ regulär?
+\item \textbf{Mehrdeutigkeit:} Ist $G$ mehrdeutig?
+\end{itemize}
+
+\subsection{Kellerautomat (PDA)} % (fold)
+\label{sub:kellerautomat_pDA_}
+\begin{itemize}
+	\item Ein (nichtdeterministischer) Kellerautomat $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta, F)$ besteht aus
+\begin{itemize}
+  \item $Q$, endliche Menge von \textbf{Zuständen}
+\item $\Sigma$, endliches \textbf{Eingabealphabet}
+\item $\Gamma$, endliches \textbf{Kelleralphabet}
+\item $q_0$, \textbf{Startzustand}
+\item $Z_0$, \textbf{unterstes Kellerzeichen}
+\item $\delta: Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma \rightarrow \mathcal{P}_e(Q \times \Gamma^*)$, \textbf{Übergangsfunktion}
+\item $F \subseteq Q$, Menge von \textbf{Endzuständen}
+\end{itemize}
+
+\item \textbf{Bedeutung von }$(q', \alpha) \in \delta(q, a, Z)$\textbf{:} Wenn sich $M$ in Zustand $q$ befindet, das Eingabezeichen $a$ liest und $Z$ das oberste Kellerzeichen ist, so kann $M$ im nächsten Schritt in $q'$ übergehen und $Z$ durch $\alpha$ ersetzen.
+	\begin{itemize}
+	  \item \textbf{POP-Operation:} $\alpha = \epsilon$, das oberste Kellerzeichen $Z$ wird entfernt
+	\item \textbf{PUSH-Operation:} $\alpha = Z'Z$, $Z'$ wird als neues oberstes Kellerzeichen gepusht
+	\item \textbf{$\epsilon$-Übergang:} $a = \epsilon$, ohne Lesen eines Eingabezeichens
+	\end{itemize}
+
+\item Eine \textbf{Konfiguration} eines Kellerautomaten $M$ ist ein Tripel $(q, w, \alpha)$ mit $q \in Q$, $w \in \Sigma^*$ und $\alpha \in \Gamma^*$
+	\begin{itemize}
+	  \item $q$, der \textbf{momentane Zustand}
+	\item $w$, \textbf{noch zu lesende Teil der Eingabe}
+	\item $\alpha$, der \textbf{aktuelle Inhalt des Kellers}
+	\end{itemize}
+
+\item \textbf{Anfangskonfiguration} von $M$ für die Eingabe $w \in \Sigma^*$ ist $(q_0, w, Z_0)$
+
+\item Auf der Menge aller Konfigurationen definieren wir binäre Relation $\rightarrow_M$:
+	\\ \\ \begin{math}
+		(q,aw,Z\alpha) \rightarrow_M \left\{
+			\begin{array}{ll}
+				(q',w,\beta \alpha) & \mbox{falls $(q', \beta) \in \delta(q, a, Z)$}\\
+				(q', aw, \beta \alpha) & \mbox{falls $(q', \beta) \in \delta(q, \epsilon, Z)$}
+		\end{array}
+		\right.
+	\end{math}
+
+\item \textbf{Bedeutung von $(q, w, \alpha) \rightarrow_M (q', w',\alpha')$:} Wenn $M$ sich in der Konfiguration $(q, w, \alpha)$ befindet, dann kann er in einen Schritt in die Nachfolgerkonfiguration $(q', w',\alpha')$ übergehen.
+\item \textbf{Bemerkung:} Eine Konfiguration kann \textbf{mehrere Nachfolgerkonfigurationen} haben $\rightarrow$ \textbf{Nichtdeterminismus}
+
+\item PDA $M$ \textbf{akzeptiert} $w \in \Sigma^*$ \textbf{mit Endzustand} gdw.\ $(q_0, w, Z_0) \rightarrow_M^* (f, \epsilon, \gamma)$ für $f \in F$, $\gamma \in \Gamma^*$
+
+\item PDA $M$ \textbf{akzeptiert} $w \in \Sigma^*$ \textbf{mit leeren Keller} gdw.\ $(q_0, w, Z_0) \rightarrow_M^* (q, \epsilon, \epsilon)$ für $q \in F$
+
+	
+\end{itemize}
 
 
 
