@@ -1065,12 +1065,38 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 	
 \end{itemize}
 
-\subsection{Endzustand PDA $\rightarrow$ leerer Keller PDA} % (fold)
+\subsection{Endzustand PDA $M$ $\rightarrow$ Leerer Keller PDA $M'$} % (fold)
 \label{sub:endzustand_pDA_rightarrow_leerer_keller_pDA}
-\textbf{Idee:}
-\begin{enumerate}
-  \item 
-\end{enumerate}
+\begin{itemize}
+	\item \textbf{Idee:}
+		\begin{enumerate}
+			\item Sobald $M$ einen Endzustand erreicht, darf er den Keller leeren $\rightarrow$ $M'$ \textbf{geht in den neuen Zustand} $\overline{q}$ und \textbf{leert dort den Keller}
+			\item Verhindern, dass der Keller von $M$ leer wird, ohne dass $M$ in einem Endzustand ist $\rightarrow$ $M'$ hat ein \textbf{neues Symbol} $Z'$ \textbf{ganz unten im Keller} 
+		\end{enumerate}
+\item $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta, F)$
+\item $M' = (Q', \Sigma, \Gamma', q'_0, Z_0', \delta')$ mit $Q' = Q \uplus \{q'_0, \overline{q}\}$, $\Gamma' = \Gamma \uplus \{Z'_0\}$ und
+\begin{itemize}
+  
+\item $\delta'(q'_0, \epsilon, Z'_0) = \{(q_0, Z_0Z'_0)\}$ $\rightarrow$ \textbf{Übergang von $q'_0$ zu $q_0$}
+\item $\delta'(q, a, Z) = \delta(q, a, Z)$ für $q \in Q \setminus F$, $a \in \Sigma \cup \{\epsilon\}$, $Z \in \Gamma$ $\rightarrow$ \textbf{Alle Übergänge zwischen $q$s}
+\item $\delta'(f, a, Z) = \delta(f,a,Z)$ für $f \in F$, $a \in \Sigma$, $Z \in \Gamma$ $\rightarrow$ \textbf{Alle Übergänge von Endzuständen zu $q$s}
+\item $\delta'(f, \epsilon, Z) = \delta(f, \epsilon, Z) \ \cup \ \{(\overline{q}, Z)\}$ für $Z \in \Gamma$ $\rightarrow$ \textbf{Alle $\epsilon$-Übergänge von Endzuständen zu $q$s und zu $\overline{q}$}
+\item $\delta'(\overline{q}, \epsilon, Z) = \{(\overline{q}, \epsilon)\}$ für $Z \in \Gamma'$ $\rightarrow$ \textbf{Übergang von $\overline{q}$ zu $\overline{q}$ zum Leeren des Kellers}
+\end{itemize}
+
+\end{itemize}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{endtoleerpda.jpg}
+  \label{fig:endtoleerpda_jpg}
+\end{figure}
+
+\subsection{Leerer Keller PDA $M$ $\rightarrow$ Endzustand PDA $m'$} % (fold)
+\label{sub:leerer_keller_pDA_m_rightarrow_endzustand_pDA_m_}
+
+
+
+
 
 
 \end{document}
