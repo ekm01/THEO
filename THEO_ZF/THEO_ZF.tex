@@ -1070,7 +1070,7 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \begin{itemize}
 	\item \textbf{Idee:}
 		\begin{enumerate}
-			\item Sobald $M$ einen Endzustand erreicht, darf er den Keller leeren $\rightarrow$ $M'$ \textbf{geht in den neuen Zustand} $\overline{q}$ und \textbf{leert dort den Keller}
+			\item Sobald $M$ einen Endzustand erreicht, darf er den Keller leeren $\rightarrow$ $M'$ \textbf{geht in den neuen Nicht-Endzustand} $\overline{q}$ und \textbf{leert dort den Keller}, es gibt \textbf{keine Endzustände mehr}
 			\item Verhindern, dass der Keller von $M$ leer wird, ohne dass $M$ in einem Endzustand ist $\rightarrow$ $M'$ hat ein \textbf{neues Symbol} $Z'$ \textbf{ganz unten im Keller} 
 		\end{enumerate}
 \item $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta, F)$
@@ -1080,21 +1080,43 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \item $\delta'(q'_0, \epsilon, Z'_0) = \{(q_0, Z_0Z'_0)\}$ $\rightarrow$ \textbf{Übergang von $q'_0$ zu $q_0$}
 \item $\delta'(q, a, Z) = \delta(q, a, Z)$ für $q \in Q \setminus F$, $a \in \Sigma \cup \{\epsilon\}$, $Z \in \Gamma$ $\rightarrow$ \textbf{Alle Übergänge zwischen $q$s}
 \item $\delta'(f, a, Z) = \delta(f,a,Z)$ für $f \in F$, $a \in \Sigma$, $Z \in \Gamma$ $\rightarrow$ \textbf{Alle Übergänge von Endzuständen zu $q$s}
-\item $\delta'(f, \epsilon, Z) = \delta(f, \epsilon, Z) \ \cup \ \{(\overline{q}, Z)\}$ für $Z \in \Gamma$ $\rightarrow$ \textbf{Alle $\epsilon$-Übergänge von Endzuständen zu $q$s und zu $\overline{q}$}
+\item $\delta'(f, \epsilon, Z) = \delta(f, \epsilon, Z) \ \cup \ \{(\overline{q}, Z)\}$ für $Z \in \Gamma$ $\rightarrow$ \textbf{Alle $\epsilon$-Übergänge von Endzuständen zu $q$s und $\overline{q}$}
 \item $\delta'(\overline{q}, \epsilon, Z) = \{(\overline{q}, \epsilon)\}$ für $Z \in \Gamma'$ $\rightarrow$ \textbf{Übergang von $\overline{q}$ zu $\overline{q}$ zum Leeren des Kellers}
 \end{itemize}
 
 \end{itemize}
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\linewidth]{endtoleerpda.jpg}
+  \includegraphics[width=0.52\linewidth]{endtoleerpda.jpg}
   \label{fig:endtoleerpda_jpg}
 \end{figure}
 
-\subsection{Leerer Keller PDA $M$ $\rightarrow$ Endzustand PDA $m'$} % (fold)
+\subsection{Leerer Keller PDA $M$ $\rightarrow$ Endzustand PDA $M'$} % (fold)
 \label{sub:leerer_keller_pDA_m_rightarrow_endzustand_pDA_m_}
+\begin{itemize}
+  \item \textbf{Idee:}
+	  \begin{enumerate}
+	    \item Es wird am Anfang $Z'_0$ auf Keller geschrieben, damit der Keller nicht geleert wird
+		\item Sobald $M$ auf dem Keller $Z'_0$ findet, muss er in den Endzustand gehen, somit ist der Keller am Ende nicht leer $\rightarrow$ $M'$ \textbf{geht in den neuen Endzustand $f$}
+	  \end{enumerate}
+
+	 \item $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta)$
+	 \item $M' = (Q', \Sigma, \Gamma', q'_0, Z_0', \delta', F')$ mit $Q' = Q \uplus \{q'_0,f\}$, $\Gamma' = \Gamma \uplus \{Z'_0\}$, $F' = \{f\}$ und
+		 \begin{itemize}
+			 \item $\delta'(q'_0, \epsilon, Z'_0) = \{(q_0, Z_0Z'_0)\}$ $\rightarrow$ \textbf{Übergang von $q'_0$ zu $q_0$}
+			 \item $\delta'(q, a, Z) = \delta(q, a, Z)$ für $q \in Q$, $a \in \Sigma \cup \{\epsilon\}$, $Z \in \Gamma$ $\rightarrow$ \textbf{Alle Übergänge zwischen $q$s}
+			 \item $\delta'(q, \epsilon, Z'_0) = \{(f, Z'_0)\}$ für $q \in Q$, $f \in F'$ $\rightarrow$ \textbf{Übergang von $q$ zu $f$ beim Sehen von $Z'_0$}
+		 \end{itemize}
+\end{itemize}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.52\linewidth]{leertoendpda.jpg}
+  \label{fig:leertoendpda_jpg}
+\end{figure}
 
 
+\subsection{Erweiterungslemma} % (fold)
+\label{sub:erweiterungslemma}
 
 
 
