@@ -1117,6 +1117,34 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 
 \subsection{Erweiterungslemma} % (fold)
 \label{sub:erweiterungslemma}
+\begin{itemize}
+  \item $(q, u, \alpha) \rightarrow_M^n (q', u', \alpha')$ $\Longrightarrow$ $(q, uv, \alpha \beta) \rightarrow_M^n (q', u'v, \alpha' \beta)$
+\begin{itemize}
+    \item $q' \in Q$ ist der neue Zustand, den wir in $n$ Schritten erreichen
+\item $u' \in \Sigma^*$ ist der noch zu lesende Teil von der Eingabe $u$
+\item $\alpha' \in \Gamma^*$ ist der veränderte Kellerinhalt durch das Lesen eines Teils vom Wort $u$, der ganz oben im Keller steht
+\item $v \in \Sigma^*$ ist eine neue Eingabe, die mit $u$ konkateniert wird
+\item $\beta \in \Gamma^*$ ist der neue Kellerzeichenkette, die ganz unten im Keller steht und während der ganzen Berechnungen unverändert erhalten bleibt
+
+\end{itemize}
+\item \textbf{Erweiterungslemma} sagt, dass man \textbf{den Kellerinhalt sowie die Eingabe erweitern} kann, indem man ganz unten im Keller oder ganz hinten in der Eingabe etwas hinzufügt, ohne die Eigenschaft zu zerstören, dass man \textbf{wieder in $n$ gleichen Schritten die gleiche Konfiguration (plus das extra unberührtes Kellerinhalt und die Eingabe) erreichen} kann.
+
+\end{itemize}
+
+\subsection{Zerlegungssatz} % (fold)
+\label{sub:zerlegungssatz}
+\begin{itemize}
+	\item \textbf{Zerlegungssatz} sagt, dass die Berechnung von einem Wort $(q,w,Z_{1 \ldots k}) \rightarrow^n_M (q',\epsilon,\epsilon)$ mit $w = u_1 \ldots u_k$, $Z_i \in \Gamma^*$ \textbf{sich in $k$ Teile zerlegen lässt}, indem man bei jeder Zerlegung \textbf{nur ein Teil} von $w$ liest und zum Lesen \textbf{beliebig viele} PUSH- und POP-Operationen macht \textbf{ohne den Kellerteil von der folgenden Zerlegung zu berühren (Erweiterungslemma)}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.6\linewidth]{zerlegungssatz}
+  \label{fig:zerlegungssatz}
+\end{figure}
+
+\item 
+\end{itemize}
+
 
 
 
