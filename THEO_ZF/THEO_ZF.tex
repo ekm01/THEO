@@ -1015,7 +1015,7 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \item \textbf{Mehrdeutigkeit:} Ist $G$ mehrdeutig?
 \end{itemize}
 
-\subsection{Kellerautomat (PDA)} % (fold)
+\subsection{Nicht Deterministisches Kellerautomat (NPDA)} % (fold)
 \label{sub:kellerautomat_pDA_}
 \begin{itemize}
 	\item Ein (nichtdeterministischer) Kellerautomat $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta, F)$ besteht aus
@@ -1134,18 +1134,72 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \subsection{Zerlegungssatz} % (fold)
 \label{sub:zerlegungssatz}
 \begin{itemize}
-	\item \textbf{Zerlegungssatz} sagt, dass die Berechnung von einem Wort $(q,w,Z_{1 \ldots k}) \rightarrow^n_M (q',\epsilon,\epsilon)$ mit $w = u_1 \ldots u_k$, $Z_i \in \Gamma^*$ \textbf{sich in $k$ Teile zerlegen lässt}, indem man bei jeder Zerlegung \textbf{nur ein Teil} von $w$ liest und zum Lesen \textbf{beliebig viele} PUSH- und POP-Operationen macht \textbf{ohne den Kellerteil von der folgenden Zerlegung zu berühren (Erweiterungslemma)}.
+	\item \textbf{Zerlegungssatz} sagt, dass die Berechnung von einem Wort $(q,w,Z_{1 \ldots k}) \rightarrow^n_M (q',\epsilon,\epsilon)$ mit $w = u_1 \ldots u_k$, $Z_i \in \Gamma^*$ \textbf{sich in $k$ Teile zerlegen lässt}, indem man bei jeder Zerlegung \textbf{nur ein Teil} von $w$ liest und zum Lesen \textbf{beliebig viele} PUSH- und POP-Operationen macht \textbf{ohne den Kellerteil von den folgenden Zerlegungen zu berühren (Erweiterungslemma)}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.6\linewidth]{zerlegungssatz}
+  \includegraphics[width=0.7\linewidth]{zerlegungssatz}
   \label{fig:zerlegungssatz}
 \end{figure}
 
-\item 
+\item $Z_1$ hat die Höhe 4, d.h.\ die Kellerzeichen $Z_2, Z_3, Z_4$ unten werden nicht berührt.
+
 \end{itemize}
 
+\subsection{CFG $\rightarrow$ PDA} % (fold)
+\label{sub:_cFG_rightarrow_pDA}
+\begin{itemize}
+	\item Zu jeder CFG $G$ kann man einen PDA $M$ konstruieren, der mit leerem Keller akzeptiert, so dass $L_{\epsilon}(M) = L(G)$
+\item \textbf{Konstruktion:} Bringe alle Produktionen in die Form: $A \rightarrow bB_1 \ldots B_k$ mit $b \in \Sigma \ \cup \ \{\epsilon\}$
+	\begin{enumerate}
+	\item Füge für jedes Terminal $a\in\Sigma$ ein neues Nichtterminal $X_a$ hinzu
+	\item Ersetze alle $a$s ausser dem ersten Terminalzeichen durch $X_a$ in den Produktionen auf der rechten Seite
+	\item Füge eine neue Produktion $X_a \rightarrow a$ hinzu
+	\item Übersetze die Produktionen in Transitionen von PDA, die Schleifen über einen einzigen Zustand sind:
+		\begin{itemize}
+			\item $S \rightarrow G$ zu $\epsilon, S / G$
+			\item $B \rightarrow bSS$ zu $b, B/SS$
+			\item $A \rightarrow a$ zu $a, A/\epsilon$
 
+		\end{itemize}
+	\end{enumerate}
+
+\item \textit{\underline{Beispiel:}}
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.5\linewidth]{cfgtopda}
+	  \label{fig:cfgtopda}
+	\end{figure}
+\end{itemize}
+
+\subsection{PDA $\rightarrow$ CFG} % (fold)
+\label{sub:pDA_rightarrow_cFG}
+\begin{itemize}
+	\item Zu jedem PDA $M$, der mit leerem Keller akzeptiert, kann man eine CFG $G$ konstruieren mit $L(G) = L_{\epsilon}(M)$
+\item \textbf{Konstruktion:}
+	\begin{enumerate}
+		\item Für alle $q \in Q$ füge die Produktion $S \rightarrow [q_0, Z_0, q]$
+		\item Für alle POP-Operationen $\delta(q, a, Z) = (q', \epsilon)$ füge die Produktion $[q,Z,q'] \rightarrow a$
+		\item Für alle PUSH-Operationen $\delta(q, a, Z) = (r_0, Z_1 \ldots Z_k)$ und für alle $r_1 \ldots r_k$ füge die Produktion $[q, Z, r_k] \rightarrow a[r_0, Z_1, r_1][r_1, Z_2, r_2] \ldots [r_{k-1}, Z_k, r_k]$
+	\end{enumerate}
+
+\pagebreak
+\item \textit{\underline{Beispiel:}}
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=1.0\linewidth]{pdatocfg}
+	  \label{fig:pdatocfg}
+	\end{figure}
+\end{itemize}
+
+\subsection{Deterministisches Kellerautomat (DPDA)} % (fold)
+\label{sub:deterministisches_kellerautomat_dPDA_}
+\begin{itemize}
+  \item Ein PDA ist \textbf{deterministisch} gdw.\ für alle $q \in Q$, $a \in \Sigma$ und $Z \in \Gamma$ gilt $|\delta(q,a,Z)| + |\delta(q, \epsilon, Z)| \le 1$
+\item \textbf{NPDA} ist \textbf{mächtiger} als \textbf{DPDA}
+\item CFL ist \textbf{deterministisch} (DCFL) gdw.\ sie \textbf{von einem DPDA akzeptiert} wird
+\item Jede \textbf{reguläre Sprache} ist eine \textbf{CFL}
+\end{itemize}
 
 
 
