@@ -542,6 +542,7 @@ Seien $L, L_1, L_2 \subseteq \Sigma^*$ reguläre Sprachen, dann sind auch
 
 \item $L^*$
 \item $L^R$ (Spiegelung von $L$)
+\item $L_1 \times L_2$
 \end{itemize}
 
 \subsection{Komplementierung $\overline{L}$ bezüglich FAs} % (fold)
@@ -952,15 +953,7 @@ Eine Sprache ist \textbf{regulär}
 \end{itemize}
 
 
-\subsection{Abschlusseigenschaften der CFLs} % (fold)
-\label{sub:abschlusseigenschaften_der_cFLs}
-Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
-\begin{itemize}
-  \item $L_1 \cup L_2$
-\item $L_1L_2$
-\item $L^*$
-\item $L^R$
-\end{itemize}
+
 
 
 \subsection{Erzeugend, Erreichbar, Nützlich} % (fold)
@@ -1009,8 +1002,8 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \subsection{Nicht Entscheidbare Probleme für CFGs} % (fold)
 \label{sub:nicht_entscheidbare_probleme_für_cFGs}
 \begin{itemize}
-  \item \textbf{Äquivalenz:} $L(G_1) = L(G_2)$
-\item \textbf{Schnittproblem:} $L(G_1) \cap L(G_2)$
+  \item \textbf{Äquivalenz:} $L(G_1) = L(G_2)$?
+\item \textbf{Schnittproblem:} $L(G_1) \cap L(G_2) = \emptyset$?
 \item \textbf{Regularität:} $L(G)$ regulär?
 \item \textbf{Mehrdeutigkeit:} Ist $G$ mehrdeutig?
 \end{itemize}
@@ -1167,7 +1160,7 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \item \textit{\underline{Beispiel:}}
 	\begin{figure}[h!]
 	  \centering
-	  \includegraphics[width=0.5\linewidth]{cfgtopda}
+	  \includegraphics[width=0.3\linewidth]{cfgtopda}
 	  \label{fig:cfgtopda}
 	\end{figure}
 \end{itemize}
@@ -1183,11 +1176,10 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 		\item Für alle PUSH-Operationen $\delta(q, a, Z) = (r_0, Z_1 \ldots Z_k)$ und für alle $r_1 \ldots r_k$ füge die Produktion $[q, Z, r_k] \rightarrow a[r_0, Z_1, r_1][r_1, Z_2, r_2] \ldots [r_{k-1}, Z_k, r_k]$
 	\end{enumerate}
 
-\pagebreak
 \item \textit{\underline{Beispiel:}}
 	\begin{figure}[h!]
 	  \centering
-	  \includegraphics[width=1.0\linewidth]{pdatocfg}
+	  \includegraphics[width=0.65\linewidth]{pdatocfg}
 	  \label{fig:pdatocfg}
 	\end{figure}
 \end{itemize}
@@ -1199,7 +1191,77 @@ Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
 \item \textbf{NPDA} ist \textbf{mächtiger} als \textbf{DPDA}
 \item CFL ist \textbf{deterministisch} (DCFL) gdw.\ sie \textbf{von einem DPDA akzeptiert} wird
 \item Jede \textbf{reguläre Sprache} ist eine \textbf{CFL}
+
+\item Die vom leeren Keller akzeptierten DCFLs sind die Sprachen, die \textbf{vom Endzustand akzeptiert} werden und \textbf{präfixfrei} sind: Kein Wort in der Sprache ist die Präfix eines anderen Wortes in der Sprache
+
+\item Jede DCFL ist \textbf{nicht inhärent mehrdeutig}, d.h.\ sie wird von einer \textbf{nicht-mehrdeutigen Grammatik} erzeugt
+
 \end{itemize}
+
+\subsection{Abschlusseigenschaften der CFLs} % (fold)
+\label{sub:abschlusseigenschaften_der_cFLs}
+Seien $L$, $L_1$, $L_2 \subseteq \Sigma^*$ kontextfreie Sprachen, dann sind auch
+\begin{itemize}
+  \item $L_1 \cup L_2$
+\item $L_1L_2$
+\item $L^*$
+\item $L^R$
+\item $L_1 \times L_2$
+\end{itemize}
+
+
+\subsection{Abschlusseigenschaften der DCFLs} % (fold)
+\label{sub:abschlusseigenschaften_der_DCFLs}
+Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann ist auch
+\begin{itemize}
+	\item $\overline{L}$
+\end{itemize}
+
+\section{Abschlusseigenschaften und Entscheidbarkeit} % (fold)
+\label{sec:überblick_abschlusseigenschaften_und_entscheidbarkeit}
+
+\subsection{Abschlusseigenschaften} % (fold)
+\label{sub:abschlusseigenschaften}
+
+\begin{tabular}{|c||c||c||c||c||c||c||c|}
+\hline
+ & $L_1\cap L_2$ & $L_1 \cup L_2$ & $\overline{L}$ & $L_1\times L_2$ & $L^*$ & $L_1L_2$ & $L^R$ \\ \hline
+	\textbf{Regulär} & ja & ja & ja & ja & ja & ja & ja\\ \hline
+\textbf{CFL} & nein & ja & nein & ja & ja & ja & ja\\ \hline
+\textbf{DCFL} & nein & nein & ja & nein & nein & nein & nein \\ \hline
+\end{tabular}
+
+\pagebreak
+
+\subsection{Entscheidbarkeit} % (fold)
+\label{sub:entscheidbarkeit}
+
+\begin{tabular}{|c||c||c||c||c||c|}
+\hline
+ & \textbf{Wort} & \textbf{Leerheit} & \textbf{Äquivalenz} & \textbf{Schnitt} & \textbf{Endlichkeit} \\ \hline
+	\textbf{DFA} & ja & ja & ja & ja & ja\\ \hline
+\textbf{NFA} & ja & ja & ja & ja & ja \\ \hline
+\textbf{CFG} & ja & ja & ja & nein & ja \\ \hline
+\textbf{DPDA} & ja & ja & nein & nein & ja \\ \hline
+\end{tabular}
+
+\vspace*{0.5cm}
+
+\hspace{-0.52cm}\begin{tabular}{|c||c||c|}
+\hline
+ & \textbf{Regularität} & \textbf{Mehrdeutigkeit} \\ \hline
+\textbf{CFG} & nein & nein  \\ \hline
+\textbf{DPDA} & ja & ja  \\ \hline
+\end{tabular}
+
+\section{Berechenbarkeit, Entscheidbarkeit} % (fold)
+\label{sec:berechenbarkeit_entscheidbarkeit}
+
+
+
+
+
+
 
 
 
