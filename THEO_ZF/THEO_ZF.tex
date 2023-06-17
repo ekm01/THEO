@@ -1008,7 +1008,7 @@ Eine Sprache ist \textbf{regulär}
 \item \textbf{Mehrdeutigkeit:} Ist $G$ mehrdeutig?
 \end{itemize}
 
-\subsection{Nicht Deterministisches Kellerautomat (NPDA)} % (fold)
+\subsection{Nicht Deterministischer Kellerautomat (NPDA)} % (fold)
 \label{sub:kellerautomat_pDA_}
 \begin{itemize}
 	\item Ein (nichtdeterministischer) Kellerautomat $M = (Q, \Sigma, \Gamma, q_0, Z_0, \delta, F)$ besteht aus
@@ -1257,6 +1257,41 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 \section{Berechenbarkeit, Entscheidbarkeit} % (fold)
 \label{sec:berechenbarkeit_entscheidbarkeit}
 
+\subsection{Grundbegriffe der Berechenbarkeit} % (fold)
+\label{sub:berechenbarkeit}
+\begin{itemize}
+	\item Funktion $f: \mathbb{N}^k \rightarrow \mathbb{N}$ ist \textbf{berechenbar}, wenn es \textbf{einen Algorithmus gibt}, der bei Eingabe $(n_1, \ldots, n_k) \in \mathbb{N}^k$
+	\begin{itemize}
+	  \item \textbf{nach endlich vielen Schritten} mit Ergebnis $f(n_1, \ldots, n_k)$ \textbf{hält}, falls $f(n_1, \ldots, n_k)$ \textbf{definiert} ist
+	\item \textbf{nicht terminiert}, falls $f(n_1, \ldots, n_k)$ \textbf{nicht definiert} ist 
+	\end{itemize}
+
+
+\item Funktion $f: A \rightarrow B$ ist
+	\begin{itemize}
+	  \item \textbf{total} gdw.\ $f(a)$ für alle $a \in A$ definiert ist
+	\item \textbf{partiell} gdw.\ $f(a)$ für beliebige oder keine $a \in A$ definiert ist
+	\item \textbf{echt partiell} gdw.\ sie nicht total ist
+	\end{itemize}
+
+\item \textbf{Jeder Algorithmus} berechnet eine \textbf{partielle Funktion}
+	\begin{itemize}
+	  \item \textit{\underline{Beispiel 1:}} Algorithmus
+		  $input(n);$
+		  $while \ true \ do;$ berechnet die überall undefinierte partielle Funktion, d.h.\ $\emptyset \subset \mathbb{N} \rightarrow \mathbb{N}$
+
+	\end{itemize}
+	\item \textit{\underline{Beispiel 2:}} \begin{math}
+		f(n) \left\{
+			\begin{array}{ll}
+				1 & \hspace{-6.35cm} \mbox{falls $n$ als Ziffernfolge Anfangsstück}\\ \hspace{1cm}\mbox{der Dezimalbruchentwicklung von $\pi$ ist}\\
+				0 & \hspace{-6.35cm}\mbox{sonst}
+		\end{array}
+		\right.
+	\end{math}
+
+		
+\end{itemize}
 
 
 
