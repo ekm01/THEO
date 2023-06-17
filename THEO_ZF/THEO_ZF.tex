@@ -1289,10 +1289,37 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 		\end{array}
 		\right.
 	\end{math}
-
+\\\\ $f$ ist berechenbar ($f(314) = 1$, $f(315) = 0$), denn es Algorithmen gibt, die $\pi$ iterativ auf beliebig viele Dezimalstellen genau berechnet werden.
 		
-\end{itemize}
+\item \textit{\underline{Beispiel 3:}} \begin{math}
+		f(n) \left\{
+			\begin{array}{ll}
+				1 & \hspace{-6.35cm} \mbox{falls $n$ als Ziffernfolge irgendwo in}\\ \hspace{1cm}\mbox{der Dezimalbruchentwicklung von $\pi$ ist}\\
+				0 & \hspace{-6.35cm}\mbox{sonst}
+		\end{array}
+		\right.
+	\end{math}
+\\\\ Es ist unbekannt, ob $f$ berechenbar ist. Wie stellt man fest, dass $n$ nicht vorkommt, wenn der Dezimalbruchentwicklung nie terminiert?
 
+\pagebreak
+
+\item \textit{\underline{Beispiel 4:}} \begin{math}
+		f(n) \left\{
+			\begin{array}{ll}
+				1 & \hspace{-6.4cm} \mbox{falls 10 mal hintereinander Nullen in}\\ \hspace{1cm}\mbox{der Dezimalbruchentwicklung von $\pi$ ist}\\
+				0 & \hspace{-6.35cm}\mbox{sonst}
+		\end{array}
+		\right.
+	\end{math}
+\\\\ $f$ ist berechenbar, denn $f$ ist entweder die konstante Funktion, die $1$ für alle $n\ge0$ zurückgibt, oder die Funktion, die $0$ für alle $n\ge 0$ zurückgibt. Beide sind berechenbar.
+\\\\ Das ist ein \textbf{nicht-konstruktiver Beweis:} Wir wissen, es gibt einen Algorithmus, der $f$ berechnet, aber \textbf{wissen nicht, welcher}.
+
+\item Es gibt \textbf{nicht berechenbare} Funktionen $\mathbb{N} \rightarrow \{0,1\}$
+	\begin{itemize}
+		\item Es gibt \textbf{abzählbar} viele Algorithmen, aber \textbf{überabzählbar} viele Funktionen in $\mathbb{N} \rightarrow \{0,1\}$ 
+	\end{itemize}
+
+\end{itemize}
 
 
 
