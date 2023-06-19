@@ -548,7 +548,7 @@ Seien $L, L_1, L_2 \subseteq \Sigma^*$ reguläre Sprachen, dann sind auch
 \subsection{Komplementierung $\overline{L}$ bezüglich FAs} % (fold)
 \label{sub:komplementierung_bezüglich_fAs}
 \begin{itemize}
-  \item \textbf{Für DFAs:} Vertauschen von Endzuständen und Nicht-Endzuständen
+  \item \textbf{Für DFAs:} Vertauschen von Endzuständen und Nicht-Endzuständen (\textbf{inkl. Fangzustand!})
 \item \textbf{Für NFAs:} funktioniert das Vertauschen \textbf{nicht} 
 \end{itemize}
 
@@ -1260,7 +1260,7 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 \subsection{Grundbegriffe der Berechenbarkeit} % (fold)
 \label{sub:berechenbarkeit}
 \begin{itemize}
-	\item Funktion $f: \mathbb{N}^k \rightarrow \mathbb{N}$ ist \textbf{berechenbar}, wenn es \textbf{einen Algorithmus gibt}, der bei Eingabe $(n_1, \ldots, n_k) \in \mathbb{N}^k$
+	\item \textbf{Intuitiver Begriff:} Funktion $f: \mathbb{N}^k \rightarrow \mathbb{N}$ ist \textbf{berechenbar}, wenn es \textbf{einen Algorithmus gibt}, der bei Eingabe $(n_1, \ldots, n_k) \in \mathbb{N}^k$
 	\begin{itemize}
 	  \item \textbf{nach endlich vielen Schritten} mit Ergebnis $f(n_1, \ldots, n_k)$ \textbf{hält}, falls $f(n_1, \ldots, n_k)$ \textbf{definiert} ist
 	\item \textbf{nicht terminiert}, falls $f(n_1, \ldots, n_k)$ \textbf{nicht definiert} ist 
@@ -1316,14 +1316,38 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 
 \item Es gibt \textbf{nicht berechenbare} Funktionen $\mathbb{N} \rightarrow \{0,1\}$
 	\begin{itemize}
-		\item Es gibt \textbf{abzählbar} viele Algorithmen, aber \textbf{überabzählbar} viele Funktionen in $\mathbb{N} \rightarrow \{0,1\}$ 
+		\item Es gibt \textbf{abzählbar} viele Algorithmen, aber \textbf{überabzählbar} viele Funktionen in $\mathbb{N} \rightarrow \{0,1\}$
+
+
+\item Menge $M$ ist \textbf{abzählbar} falls es eine injektive Funktion $M \rightarrow \mathbb{N}$ gibt, Äquivalente Definitionen:
+	\begin{itemize}
+		\item Entweder gibt es ein Bijektion $M \rightarrow \{0, \ldots, n\}$ für ein $n \in \mathbb{N}$, oder eine Bijektion $M \rightarrow \mathbb{N}$
+		\item Es gibt eine Nummerierung der Elemente von $M$
 	\end{itemize}
 
+\item Menge $M$ ist \textbf{überabzählbar} wenn sie nicht abzählbar ist
+
+\item \textbf{Zeige: Es gibt abzählbar viele Algorithmen}
+	\begin{itemize}
+\item Da $\Sigma^*$ (falls $\Sigma$ endlich) durch Nummerierung \textbf{abzählbar} ist und die \textbf{Algorithmen} nur \textbf{Wörter} sind, ist die  \textbf{Menge der Algorithmen abzählbar}
+	\end{itemize}
+
+\item \textbf{Zeige: Es gibt überabzählbar viele Funktionen $\mathbb{N} \rightarrow \{0,1\}$}
+	\begin{itemize}
+		\item Wir nehmen an, dass die Menge der Funktionen abzählbar ist.
+		\item \textbf{Diagonalargument:}
+			\begin{figure}[h!]
+			  \centering
+			  \includegraphics[width=0.6\linewidth]{diagonal}
+			  \label{fig:diagonal}
+			\end{figure}
+	\end{itemize}
 \end{itemize}
 
+\item Es gibt verschiedene Formalisierungen des Begriffs der Berechenbarkeit, wie Turing-Maschinen, $\lambda$-Kalkül, while-/goto-Programme usw. Sie sind alle \textbf{gleichmächtig}.
 
-
-
+\item \textbf{Church-Turing These:} Der formale Begriff der Berechenbarkeit mit Turing-Maschinen stimmt mit dem intuitiven Begriff der Berechenbarkeit überein.
+\end{itemize}
 
 
 
