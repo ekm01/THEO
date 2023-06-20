@@ -1350,5 +1350,29 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 \end{itemize}
 
 
+\subsection{Turingmaschine} % (fold)
+\label{sub:turingmaschine}
+\begin{itemize}
+  \item Eine \textbf{Turingmaschine (TM)} ist ein 7-Tupel $M = (Q,\Sigma, \Gamma, \delta, \square, F)$ so dass
+	 \begin{itemize}
+	   \item $Q$, endliche Menge von \textbf{Zuständen}
+	\item $\Sigma$, endliches \textbf{Eingabealphabet}
+	\item $\Gamma$, endliches \textbf{Bandalphabet}, mit $\Sigma \subset \Gamma$
+	\item $\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L,R,N\}$, \textbf{(partielle) Übergangsfunktion} 
+		
+	\item $q_0 \in Q$, \textbf{Startzustand}
+	\item $\square \in \Gamma \setminus \Sigma$, \textbf{Leerzeichen}
+		\item $F \subseteq Q$, Menge der \textbf{akzeptierenden} oder \textbf{Endzustände}
+
+	 \end{itemize}
+	 \item \textbf{Annahme:} $\delta(q,a)$ ist \textbf{nicht definiert} für alle $q \in F$ und $a \in \Gamma$
+	 \item Eine \textbf{nichtdeterministische Turingmaschine} hat eine Übergangsfunktion $\delta: Q \times \Gamma \rightarrow \mathcal{P}(Q \times \Gamma \times \{L,R,N\})$
+		 \item \textbf{Bedeutung von $\delta(q,a) = (q',b,D)$:} Wenn sich $M$ im Zustand $q$ befindet und auf dem Band $a$ liest, so geht $M$ im nächsten Schritt in den Zustand $q'$ über, überschreibt $a$ mit $b$ und bewegt danach den Schreib-/Lesekopf nach \textbf{rechts} (falls $D =R$), nach \textbf{links} (falls $D = L$), oder \textbf{nicht} (falls $D = N$).
+\end{itemize}
+
+
+
+
+
 
 \end{document}
