@@ -1366,10 +1366,37 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 
 	 \end{itemize}
 	 \item \textbf{Annahme:} $\delta(q,a)$ ist \textbf{nicht definiert} für alle $q \in F$ und $a \in \Gamma$
-	 \item Eine \textbf{nichtdeterministische Turingmaschine} hat eine Übergangsfunktion $\delta: Q \times \Gamma \rightarrow \mathcal{P}(Q \times \Gamma \times \{L,R,N\})$
+	 \item Eine \textbf{nichtdeterministische Turingmaschine} hat eine Übergangsfunktion $\delta: Q \times \Gamma \rightarrow \mathcal{P}(Q \times \Gamma \times \{L,R,N\})$, e.g.\ $\delta(q,first(\beta)) \ni (q',c , D)$)
 		 \item \textbf{Bedeutung von $\delta(q,a) = (q',b,D)$:} Wenn sich $M$ im Zustand $q$ befindet und auf dem Band $a$ liest, so geht $M$ im nächsten Schritt in den Zustand $q'$ über, überschreibt $a$ mit $b$ und bewegt danach den Schreib-/Lesekopf nach \textbf{rechts} (falls $D =R$), nach \textbf{links} (falls $D = L$), oder \textbf{nicht} (falls $D = N$).
-\end{itemize}
 
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.3\linewidth]{tm}
+	  \label{fig:filename}
+	\end{figure}
+
+	\item Eine \textbf{Konfiguration} einer Turingmaschine ist ein Tripel $(\alpha, q, \beta) \in \Gamma^* \times Q \times \Gamma^*$, dies modelliert
+		\begin{itemize}
+		  \item \textbf{Bandinhalt:} $\ldots \square \alpha \beta \square \ldots$
+
+		\item \textbf{Zustand:} $q$
+		\item \textbf{Kopf auf dem ersten Zeichen von} $\beta \square$
+		\end{itemize}
+		\item \textbf{Startkonfiguration} der Turingmaschine bei Eingabe $w \in \Sigma^*$ ist $(\epsilon, q_0, w)$
+		\item Die \textbf{Berechnung der TM $M$} wird als Relation $\rightarrow_M$ auf Konfigurationen formalisiert. Falls $\delta(q,first(\beta)) = (q',c , D)$:
+\\ \\ \begin{math}
+		(\alpha,q,\beta) \rightarrow_M \left\{
+			\begin{array}{ll}
+				(\alpha,q',c \ rest(\beta)) & \mbox{falls $D = N$}\\
+				(\alpha c, q', rest(\beta)) & \mbox{falls $D = R$}\\
+
+				(butlast(\alpha),q',last(\alpha) \ c \ rest(\beta)) & \mbox{falls $D = L$}
+		\end{array}
+		\right.
+	\end{math}
+
+\item Eine Turingmaschine $M$ \textbf{akzeptiert die Sprache} $L(M) = \{w \in \Sigma^* \ | \ \exists q \in F, \alpha, \beta \in \Gamma^*. \ (\epsilon,q_0,w) \rightarrow^*_M (\alpha,q,\beta)\}$
+\end{itemize}
 
 
 
