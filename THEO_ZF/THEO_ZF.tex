@@ -1396,8 +1396,16 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 	\end{math}
 
 \item Eine Turingmaschine $M$ \textbf{akzeptiert die Sprache} $L(M) = \{w \in \Sigma^* \ | \ \exists q \in F, \alpha, \beta \in \Gamma^*. \ (\epsilon,q_0,w) \rightarrow^*_M (\alpha,q,\beta)\}$
+\item Eine Funktion $f:\mathbb{N}^k \rightarrow \mathbb{N}$ heisst \textbf{Turing-berechenbar} gdw.\ es eine Turingmaschine $M$ gibt, so dass für alle $n_1, \ldots, n_k, m \in \mathbb{N}$ gilt
+	\begin{itemize}
+	  \item $f(n_1, \ldots, n_k) = m \Leftrightarrow \exists r \in F. \ (\epsilon, q_0, bin(n_1)\#bin(n_2)\#\ldots\#bin(n_k)) \rightarrow_M^* (\square \ldots \square,r,bin(m)\square \ldots \square)$
+		  \item $bin(n)$ ist die Binärdarstellung der Zahl $n$
+	\end{itemize}
+	\item Eine Funktion $f:\Sigma^* \rightarrow \Sigma^*$ heisst \textbf{Turing-berechenbar} gdw.\ es eine Turingmaschine $M$ gibt, so dass für alle $u,v\Sigma^*$ gilt
+		\begin{itemize}
+		  \item $f(u) = v \Leftrightarrow \exists r \in F. \ (\epsilon, q_0, u) \rightarrow_M^* (\square \ldots \square ,r,v \square \ldots \square)$
+		\end{itemize}
 \end{itemize}
-
 
 
 
