@@ -1405,7 +1405,132 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 		\begin{itemize}
 		  \item $f(u) = v \Leftrightarrow \exists r \in F. \ (\epsilon, q_0, u) \rightarrow_M^* (\square \ldots \square ,r,v \square \ldots \square)$
 		\end{itemize}
+		\item \textbf{Halten/Terminieren von TM:}
+\begin{itemize}
+  \item Eine TM \textbf{hält} wenn sie eine Konfiguration $(\alpha, q, a \beta)$ erreicht und $\delta(q,a)$ nicht definiert oder (bei nichtdeterministischer TM) $\delta(q,a) = \emptyset$
+	  \item Nach Annahme \textbf{hält eine TM immer, wenn sie einen Endzustand erreicht}.
+		  \item Eine TM kann aber auch halten, \textbf{bevor sie einen Endzustand erreicht}.
 \end{itemize}
+\item Zu jeder nichtdeterministischen TM $N$ gibt es eine deterministische TM $M$ mit $L(N) = L(M)$
+	\item Die von Turingmaschinen akzeptierten Sprachen sind genau die Typ-0-Sprachen der Chomsky Hierarchie.
+	\item \textbf{k-Band-Turingmaschine:}
+		\begin{figure}[h!]
+		  \centering
+		  \includegraphics[width=0.4\linewidth]{kbandtm}
+		  \label{fig:kbandtm}
+		\end{figure}
+
+
+	\item Jede $k$-Band-TM kann effektiv durch eine 1-Band-TM simuliert werden $\Leftrightarrow$ $n$ Schritte von $M$ lassen sicht durch $O(n^2)$ Schritte von $M'$  simulieren
+	\item Seien $M_i = (Q_i,\Sigma, \Gamma, \delta_i,q_i,\square,F_i)$, $i = 1,2$
+		\begin{itemize}
+		  \item \textbf{Sequentielle Komposition:} 
+			\begin{itemize}
+			  \item $M:= \ \rightarrow M_1 \rightarrow M_2 \rightarrow$
+			  \item $M = (Q_1 \cup Q_2, \Sigma, \Gamma_1 \cup \Gamma_2,\delta,q_1, \square,F_2)$ mit $Q_1 \cap Q_2 = \emptyset)$
+			  \item $\delta = \delta_1 \cup \delta_2 \cup \{(f_1,a) \mapsto  (q_2,a,N) \ | \ f_1 \in F_1, a \in \Gamma_1\}$ $\rightarrow$ Wenn man im Zustand $f_1$ ist und $a$ liest dann kommt man zum Anfangszustand von $M_2$ und macht weiter wie $M_2$ 
+		\end{itemize}
+	
+		\item \textbf{Fallunterscheidung:} Sind $f_1$ und $f_2$ Endzustände von $M$
+		\begin{itemize}
+			\item $M \xrightarrow{\text{$f_1$}} M_1 \rightarrow$
+	\\ $\downarrow f_2$
+\\ $M_2$
+\\$\downarrow$
+\item $M$ macht eine Fallunterscheidung, indem sie entweder von $f_1$ zu $M_1$ oder von $f_2$ zu $M_2$ übergeht
+\item "Band $i$ = 0?"-TM: $ja$ und $nein$ sind Endzustände
+	\begin{itemize}
+	  \item $\delta(q_0,0) = (q_0,0,R)$
+		\item $\delta(q_0, \square) = (ja,\square,L)$
+		\item $\delta(q_0, a) = (nein,a,N)$ für $a \neq0, \square$
+  
+  \end{itemize}
+		\end{itemize}
+
+  \item \textbf{Schleife:} Analog zur Fallunterscheidung
+	  \begin{itemize}
+	    \item Band $i=0$? $\xrightarrow{\text{$ja$}}$
+		    \\  $\uparrow \downarrow nein$
+		    \\ $M$
+	\item Diese TM verhält sich wie $while$ Band $i \neq 0$ $do$ $M$
+	  \end{itemize}
+			\end{itemize}
+\end{itemize}
+
+
+\subsection{WHILE-Programme} % (fold)
+\label{sub:wHILE_programme}
+
+\begin{itemize}
+  \item Strukturierte Programme mit $while$-Schleifen
+\item \textbf{Syntax von WHILE-Programmen:}
+	\begin{itemize}
+	\item $x_i = x_j + n$
+		\item $x_i = x_j - n$
+		
+		\item $x_i = x_j$
+	\item $x_i = n$
+	\item $x_i = x_j + x_k$ mit $i \neq k$
+\item $x_i = x_j * x_k$ mit $i \neq j,k$
+\item $DIV$, $MOD$
+	\item $IF \  x = n \ THEN \ ELSE  \ END$
+	\item $WHILE \  x_k \neq 0 \ DO \ END$
+
+\end{itemize}
+\item Eine \textbf{totale Funktion} $f:\mathbb{N}^k \rightarrow \mathbb{N}$ ist \textbf{WHILE-berechenbar} gdw.\ es ein \textbf{WHILE-Programm} $P$ gibt, so dass für alle $n_1, \ldots,n_k \in \mathbb{N}$:
+\\\\ $P$, gestartet mit $n_1, \ldots, n_k$ in $x_1, \ldots, x_k$ terminiert mit $f(n_1, \ldots, n_k)$ in $x_0$ (Endergebnis)
+
+\item Eine \textbf{partielle Funktion} $f:\mathbb{N}^k \rightarrow \mathbb{N}$ ist \textbf{WHILE-berechenbar} gdw.\ es ein \textbf{WHILE-Programm} $P$ gibt, so dass für alle $n_1, \ldots,n_k \in \mathbb{N}$:
+\\\\ $P$, gestartet mit $n_1, \ldots, n_k$ in $x_1, \ldots, x_k$:
+\begin{itemize}
+  \item \textbf{terminiert} mit $f(n_1, \ldots, n_k)$ in $x_0$, falls $f(n_1, \ldots, n_k)$ \textbf{definiert} ist
+\item \textbf{terminiert nicht}, falls $f(n_1, \ldots, n_k)$ \textbf{undefiniert} ist
+\end{itemize}
+
+\item Jede WHILE-berechenbare Funktion ist auch Turing-berechenbar $\Leftrightarrow$ Jede Programmvariable wird auf einem eigenen Band gespeichert, diese mehrband-TM wird dann von 1-Band-TM simuliert werden
+
+\item Jedes WHILE-Programm ist zu einem WHILE-Programm mit genau einer WHILE-Schleife äquivalent
+
+\item \textit{\underline{Beispiel:}}
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.2\linewidth]{whileexample}
+	  \label{fig:whileexample}
+	\end{figure}
+\end{itemize}
+
+\subsection{GOTO-Programme} % (fold)
+\label{sub:gOTO_programe}
+\begin{itemize}
+  \item Assembler
+\item Eine Sequenz von markierten Anweisungen: $M_1:A_1, \ldots, M_k:A_k$
+\item \textbf{Syntax (Anweisungen) von GOTO-Programmen:}
+	\begin{itemize}
+		\item $x_i = x_j + n$
+	\item $x_i = x_j - n$
+	\item $GOTO \ M_i$
+	\item $IF \ x_i = n \ GOTO \ M_j$
+	\item $HALT$
+	\end{itemize}
+
+\item Jedes WHILE-Programm kann durch ein GOTO-Programm simuliert werden
+\item Jedes GOTO-Programm kann durch ein WHILE-Programm simuliert werden
+\item WHILE- und GOTO-Berechenbarkeit sind äquivalent
+
+\item Jede TM kann durch ein GOTO-Programm simuliert werden
+
+\item \textit{\underline{Beispiel:}}
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.2\linewidth]{gotoexample}
+	  \label{fig:gotoexample}
+	\end{figure}
+\end{itemize}
+
+\subsection{Unterscheidbarkeit des Halteproblems} % (fold)
+\label{sub:unterscheidbarkeit_des_halteproblems}
+
+
 
 
 
