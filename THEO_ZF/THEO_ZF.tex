@@ -1529,10 +1529,40 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 
 \subsection{Unterscheidbarkeit des Halteproblems} % (fold)
 \label{sub:unterscheidbarkeit_des_halteproblems}
+\begin{itemize}
+  \item \textbf{Ziel:} Es ist unentscheidbar ob ein Programm terminiert
 
+  \item Menge $A$ ($\subseteq \mathbb{N}$ oder $\Sigma^*$) ist \textbf{entscheidbar} gdw.\ ihre \textbf{charakteristische Funktion}
+\\\\ \begin{math}
+		\chi_A(x) = \left\{
+			\begin{array}{ll}
+				1 & \mbox{falls $x \in A$ }\\
+				0 & \mbox{falls $x \not\in A$}
+		\end{array}
+		\right.
+	\end{math}
+\\\\\textbf{berechenbar} ist
 
+\item Ein \textbf{Prädikat (Eigenschaft)} $P(x)$ ist \textbf{entscheidbar} gdw.\ die \textbf{Sprache} $L =\{x \ | \ P(x)\}$ \textbf{entscheidbar} ist
 
+\item Entscheidbare Mengen sind \textbf{abgeschlossen unter Komplement} $\rightarrow$ $A$ entscheidbar, dann auch $\overline{A}$
 
+\item Die zu einem Wort $w \in \{0,1\}^*$ gehörige TM $M_w$ ist
+\\\\\begin{math}
+		M_w =  \left\{
+			\begin{array}{ll}
+				M & \mbox{falls $w$ eine Kodierung von $M$ ist}\\
+				\hat{M} & \mbox{sonst (eine beliebige feste TM)}
+		\end{array}
+		\right.
+	\end{math}
+	
+\item $M[w]$, TM $M$ mit Eingabe $w$
+\item $M[w]\downarrow$, $M$ \textbf{hält/terminiert} mit der Eingabe $w$
+\end{itemize}
+
+\subsubsection{Spezielles Halteproblem} % (fold)
+\label{ssub:spezielles_halteproblem}
 
 
 \end{document}
