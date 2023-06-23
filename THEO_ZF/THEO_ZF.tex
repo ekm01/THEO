@@ -7,7 +7,7 @@
 \usetikzlibrary{automata,positioning}
 \usepackage{changepage}
 
-\title{Einführung in die Theoretische Informatik Zusammenfassung}
+\title{Skript: Einführung in die Theoretische Informatik}
 \author{Efe Kamasoglu}
 
 \begin{document}
@@ -1612,12 +1612,24 @@ $f(w') = \bot \Leftrightarrow \chi_K(w') = 1$ \hspace*{0.3cm}(Def.\ von $f$)
 	\item Als Menge: $H = \{w\#x \ | \ M_w[x]\downarrow\}$
 	\item \textbf{Das allgemeine Halteproblem ist nicht entscheidbar}
 	\item \textbf{Beweis:} Wäre das allgemeine Halteproblem $H$ entscheidbar, dann trivialerweise auch das spezielle Halteproblem $K$:
-	\\\\ $\chi_K(w) = \chi_H(w,w)$ $\Leftrightarrow$ Da es für $M_w$ mit der Eingabe $w$ keine TM $M$ gibt, die entscheidet, ob $M_w$ hält; kann es auch die TM $M$ nicht geben, die für irgendeine TM $M_w$ bei irgendeiner Eingabe $x$ entscheidet, ob sie hält oder nicht.
+	\\\\ $\chi_K(w) = \chi_H(w,w)$ $\Leftrightarrow$ Da es für $M_w$ mit der Eingabe $w$ keine TM $M$ gibt, die entscheidet, ob $M_w$ hält; kann es auch die TM $M$ nicht geben, die für irgendeine $M_w$ bei irgendeiner Eingabe $x$ entscheidet
 \end{itemize}
 
+\subsection{Entscheidbarkeitsreduktion} % (fold)
+\label{sub:entscheidbarkeitsreduktion}
 
+\begin{itemize}
+	\item Eine Menge $A \subseteq \Sigma^*$ ist \textbf{reduzierbar} auf eine Menge $B \subseteq \Gamma^*$ gdw.\ es eine \textbf{totale}, \textbf{korrekte} und \textbf{berechenbare} Funktion $f: \Sigma^* \rightarrow \Gamma^*$ gibt mit
+\\\\$\forall w \in \Sigma^*$. $w \in A \Leftrightarrow f(w) \in B$
+\\\\Wir schreiben $A \le B$. 
 
-
+\item \textbf{Intuition:}
+	\begin{itemize}
+	  \item $B$ ist mindestens so schwer zu lösen wie $A$
+	\item Ist $A$ unlösbar, dann auch $B$
+	\item Ist $B$ lösbar, dann erst recht $A$
+	\end{itemize}
+\end{itemize}
 
 
 
