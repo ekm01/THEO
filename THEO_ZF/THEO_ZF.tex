@@ -1563,6 +1563,63 @@ Sei $L$ $\subseteq \Sigma^*$ eine deterministische kontextfreie Sprache, dann is
 
 \subsubsection{Spezielles Halteproblem} % (fold)
 \label{ssub:spezielles_halteproblem}
+\begin{itemize}
+	\item \textbf{Gegeben:} Ein Wort $w \in \{0,1\}^*$
+	\item \textbf{Problem:} Hält $M_w$ bei Eingabe $w$?
+	\item Als Menge: $K = \{w \in \{0,1\}^* \ | \ M_w[w]\downarrow\}$
+	\item \textbf{Das spezielle Halteproblem ist nicht entscheidbar}
+	\item \textbf{Beweis durch Widerspruch:}
+		\\\\\textbf{Annahme:} $K$ ist entscheidbar, d.h.\ $\chi_K$ ist berechenbar. $\Leftrightarrow$ Es gibt eine TM $M$, die für die TM $M_w$ mit der Eingabe $w$ entscheidet, ob $M_w$ hält.
+		\\Dann ist auch folgende Funktion $f$ berechenbar:
+\\\\\begin{math}
+		f(w) = \left\{
+			\begin{array}{ll}
+				0 & \mbox{falls $\chi_K(w) = 0$ (a)}\\
+				\bot & \mbox{falls $\chi_K(w) = 1$ (b)}
+		\end{array}
+		\right.
+	\end{math}
+
+	Dann berechnet TM $M$ die Funktion $\chi_K$, so berechnet die folgende TM $M'$ die Funktion $f$:
+	\begin{figure}[h!]
+	  \centering
+	  \includegraphics[width=0.3\linewidth]{shalting1}
+	  \label{fig:shalting1}
+	\end{figure}
+
+	Dann gibt es eine TM $M' = M_{w'}$ mit $w'$, die so funktioniert:
+\begin{enumerate}
+  \item $M'$ ruft $M$ auf und gibt ihr die Eingabe $w$.
+\item Sagt $M$, dass $M_w$ mit der Eingabe $w$ \textbf{nicht hält}, dann \textbf{hält} $M'$ und gibt 0 zurück. (a)
+\item Sagt $M$, dass $M_w$ mit der Eingabe $w$ \textbf{hält}, dann tritt $M'$ in eine endlose Schleife ein, also \textbf{hält nicht}. (b)
+\end{enumerate}
+$f(w') = \bot \Leftrightarrow \chi_K(w') = 1$ \hspace*{0.3cm}(Def.\ von $f$)
+\\\hspace*{1.69cm}$\Leftrightarrow w' \in K$ \hspace*{0.96cm}(Def.\ von $\chi_K$)
+\\\hspace*{1.69cm}$\Leftrightarrow M_{w'}[w']\downarrow$ \hspace*{0.59cm}(Def.\ von $K$)
+\\\hspace*{1.69cm}$\Leftrightarrow M'[w']\downarrow$ \hspace*{0.78cm}($M_{w'} = M'$)
+\\\hspace*{1.69cm}$\Leftrightarrow f(w') \neq \bot$ \hspace*{0.51cm}($M'$ berechnet $f$)
+\\\\Falls $M$ sagt, dass $M'$ mit der Eingabe $w'$ nicht hält, dann betrachten wir so eine Situation (2.): $M'$ gibt $M$ die Eingabe $w'$. $M$ entscheidet, dass $M'$ nicht hält. Somit hält $M'$ und gibt 0 zurück.
+\\\\\textbf{Widerspruch:} $f(w') = \bot \Leftrightarrow f(w') \neq \bot$, die Annahme ist damit falsch.
+\\\\In anderen Worten: Nach $M$, hält $M'$ mit der Eingabe $w'$ nicht, obwohl $M'$ nach ihrer Konstruktion hält.
+\end{itemize}
+
+
+\subsubsection{Allgemeines Halteproblem} % (fold)
+\label{ssub:allgemeines_halteproblem}
+\begin{itemize}
+	\item \textbf{Gegeben:} Wörter $w,x \in \{0,1\}^*$
+	\item \textbf{Problem:} Hält $M_w$ bei (irgendeiner) Eingabe $x$?
+	\item Als Menge: $H = \{w\#x \ | \ M_w[x]\downarrow\}$
+	\item \textbf{Das allgemeine Halteproblem ist nicht entscheidbar}
+	\item \textbf{Beweis:} Wäre das allgemeine Halteproblem $H$ entscheidbar, dann trivialerweise auch das spezielle Halteproblem $K$:
+	\\\\ $\chi_K(w) = \chi_H(w,w)$ $\Leftrightarrow$ Da es für $M_w$ mit der Eingabe $w$ keine TM $M$ gibt, die entscheidet, ob $M_w$ hält; kann es auch die TM $M$ nicht geben, die für irgendeine TM $M_w$ bei irgendeiner Eingabe $x$ entscheidet, ob sie hält oder nicht.
+\end{itemize}
+
+
+
+
+
+
 
 
 \end{document}
